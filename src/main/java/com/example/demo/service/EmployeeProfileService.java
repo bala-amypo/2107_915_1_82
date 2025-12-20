@@ -1,12 +1,15 @@
-package com.example.demo.repository;
+package com.example.demo.service;
 
 import com.example.demo.model.EmployeeProfile;
-import org.springframework.data.jpa.repository.JpaRepository;
-
 import java.util.Optional;
 
-public interface EmployeeProfileRepository
-        extends JpaRepository<EmployeeProfile, Long> {
+public interface EmployeeProfileService {
+
+    EmployeeProfile createEmployee(EmployeeProfile employee);
+
+    EmployeeProfile getEmployeeById(Long id);
 
     Optional<EmployeeProfile> findByEmployeeId(String employeeId);
+
+    EmployeeProfile updateEmployeeStatus(Long id, boolean active);
 }

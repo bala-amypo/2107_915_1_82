@@ -1,11 +1,12 @@
-package com.example.demo.model;
+package com.example.demo.repository;
 
-import java.util.Set;
+import com.example.demo.model.EmployeeProfile;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public class UserAccount {
+import java.util.Optional;
 
-    private Set<String> roles;
+public interface EmployeeProfileRepository
+        extends JpaRepository<EmployeeProfile, Long> {
 
-    public Set<String> getRoles() { return roles; }
-    public void setRoles(Set<String> roles) { this.roles = roles; }
+    Optional<EmployeeProfile> findByEmployeeId(String employeeId);
 }

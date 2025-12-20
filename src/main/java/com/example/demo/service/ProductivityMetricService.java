@@ -5,7 +5,10 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ProductivityMetricService {
-    ProductivityMetricRecord recordMetric(ProductivityMetricRecord m);
+
+    ProductivityMetricRecord recordMetric(ProductivityMetricRecord metric);
+
     Optional<ProductivityMetricRecord> getMetricById(Long id);
+
     List<ProductivityMetricRecord> getAllMetrics();
 }
