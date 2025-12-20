@@ -1,8 +1,12 @@
 package com.example.demo.repository;
 
-import com.example.demo.model.AnomalyFlagRecord;
+import com.example.demo.model.AnomalyRule;
+import org.springframework.data.jpa.repository.JpaRepository;
+
 import java.util.List;
 
-public interface AnomalyFlagRecordRepository {
-    List<AnomalyFlagRecord> findByMetricId(Long metricId);
+public interface AnomalyRuleRepository
+        extends JpaRepository<AnomalyRule, Long> {
+
+    List<AnomalyRule> findByActiveTrue();
 }
