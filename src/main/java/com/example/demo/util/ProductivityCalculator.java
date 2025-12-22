@@ -4,7 +4,12 @@ public class ProductivityCalculator {
 
     public static double computeScore(double hours, int tasks, int meetings) {
 
-        if (Double.isNaN(hours) || hours < 0) hours = 0;
+        // 🔥 CRITICAL TEST RULE:
+        // If hours is invalid → score must be 0
+        if (Double.isNaN(hours) || hours <= 0) {
+            return 0.0;
+        }
+
         if (tasks < 0) tasks = 0;
         if (meetings < 0) meetings = 0;
 
