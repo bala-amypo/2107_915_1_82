@@ -1,11 +1,15 @@
 package com.example.demo.service;
 
 import com.example.demo.model.ProductivityMetricRecord;
+
 import java.util.List;
+import java.util.Optional;
 
 public interface ProductivityMetricService {
 
-    ProductivityMetricRecord saveMetric(ProductivityMetricRecord record);
+    ProductivityMetricRecord save(ProductivityMetricRecord record);
 
-    List<ProductivityMetricRecord> getAllMetrics();
+    Optional<ProductivityMetricRecord> findById(Long id);
+
+    List<ProductivityMetricRecord> findAll();
 }

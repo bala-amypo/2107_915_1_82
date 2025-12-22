@@ -41,4 +41,8 @@ public class EmployeeProfile {
     public String getTeamName() { return teamName; }
     public void setTeamName(String teamName) { this.teamName = teamName; }
     public Boolean getActive() { return active; }
+    public void setActive(Boolean active) {
+    this.active = active;
+}
+
 }
