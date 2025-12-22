@@ -1,29 +1,41 @@
-package com.example.demo.model;
+package com.example.demo.service.impl;
 
-public class EmployeeProfile {
+import com.example.demo.model.EmployeeProfile;
+import com.example.demo.repository.EmployeeProfileRepository;
+import com.example.demo.service.EmployeeProfileService;
+import org.springframework.stereotype.Service;
 
-    private Long id;
-    private String employeeId;
-    private String fullName;
-    private String email;
-    private String teamName;
-    private Boolean active = true;
+import java.util.Optional;
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+@Service
+public class EmployeeProfileServiceImpl implements EmployeeProfileService {
 
-    public String getEmployeeId() { return employeeId; }
-    public void setEmployeeId(String employeeId) { this.employeeId = employeeId; }
+    private final EmployeeProfileRepository repo;
 
-    public String getFullName() { return fullName; }
-    public void setFullName(String fullName) { this.fullName = fullName; }
+    public EmployeeProfileServiceImpl(EmployeeProfileRepository repo) {
+        this.repo = repo;
+    }
 
-    public String getEmail() { return email; }
-    public void setEmail(String email) { this.email = email; }
+    @Override
+    public EmployeeProfile createEmployee(EmployeeProfile e) {
+        return repo.save(e);
+    }
 
-    public String getTeamName() { return teamName; }
-    public void setTeamName(String teamName) { this.teamName = teamName; }
+    @Override
+    public EmployeeProfile getEmployeeById(Long id) {
+        return repo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Employee not found"));
+    }
 
-    public Boolean getActive() { return active; }
-    public void setActive(Boolean active) { this.active = active; }
+    @Override
+    public Optional<EmployeeProfile> findByEmployeeId(String employeeId) {
+        return repo.findByEmployeeId(employeeId);
+    }
+
+    @Override
+    public EmployeeProfile updateEmployeeStatus(Long id, boolean active) {
+        EmployeeProfile e = getEmployeeById(id);
+        e.setActive(active);
+        return repo.save(e);
+    }
 }
