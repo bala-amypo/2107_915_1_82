@@ -3,6 +3,7 @@ package com.example.demo.service.impl;
 import com.example.demo.model.ProductivityMetricRecord;
 import com.example.demo.repository.ProductivityMetricRecordRepository;
 import com.example.demo.service.ProductivityMetricService;
+import com.example.demo.util.ProductivityCalculator;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,8 +18,15 @@ public class ProductivityMetricServiceImpl implements ProductivityMetricService 
     }
 
     @Override
-    public ProductivityMetricRecord save(ProductivityMetricRecord record) {
-        return repo.save(record);
+    public ProductivityMetricRecord save(ProductivityMetricRecord m) {
+        m.setProductivityScore(
+                ProductivityCalculator.computeScore(
+                        m.getHoursLogged(),
+                        m.getTasksCompleted(),
+                        m.getMeetingsAttended()
+                )
+        );
+        return repo.save(m);
     }
 
     @Override
