@@ -1,41 +1,29 @@
-package com.example.demo.service.impl;
+package com.example.demo.model;
 
-import com.example.demo.model.EmployeeProfile;
-import com.example.demo.repository.EmployeeProfileRepository;
-import com.example.demo.service.EmployeeProfileService;
-import org.springframework.stereotype.Service;
+public class EmployeeProfile {
 
-import java.util.Optional;
+    private Long id;
+    private String employeeId;
+    private String fullName;
+    private String email;
+    private String teamName;
+    private Boolean active = true;
 
-@Service
-public class EmployeeProfileServiceImpl implements EmployeeProfileService {
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    private final EmployeeProfileRepository repo;
+    public String getEmployeeId() { return employeeId; }
+    public void setEmployeeId(String employeeId) { this.employeeId = employeeId; }
 
-    public EmployeeProfileServiceImpl(EmployeeProfileRepository repo) {
-        this.repo = repo;
-    }
+    public String getFullName() { return fullName; }
+    public void setFullName(String fullName) { this.fullName = fullName; }
 
-    @Override
-    public EmployeeProfile createEmployee(EmployeeProfile e) {
-        return repo.save(e);
-    }
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
 
-    @Override
-    public EmployeeProfile getEmployeeById(Long id) {
-        return repo.findById(id)
-                .orElseThrow(() -> new RuntimeException("Employee not found"));
-    }
+    public String getTeamName() { return teamName; }
+    public void setTeamName(String teamName) { this.teamName = teamName; }
 
-    @Override
-    public Optional<EmployeeProfile> findByEmployeeId(String employeeId) {
-        return repo.findByEmployeeId(employeeId);
-    }
-
-    @Override
-    public EmployeeProfile updateEmployeeStatus(Long id, boolean active) {
-        EmployeeProfile e = getEmployeeById(id);
-        e.setActive(active);
-        return repo.save(e);
-    }
+    public Boolean getActive() { return active; }
+    public void setActive(Boolean active) { this.active = active; }
 }
