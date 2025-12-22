@@ -17,8 +17,6 @@ public class ProductivityMetricRecord {
     private Integer tasksCompleted;
     private Integer meetingsAttended;
     private Double productivityScore;
-
-    // getters & setters
     public Long getId() { return id; }
 
     public Long getEmployeeId() { return employeeId; }
