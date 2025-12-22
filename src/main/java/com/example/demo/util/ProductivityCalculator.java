@@ -4,8 +4,6 @@ public class ProductivityCalculator {
 
     public static double computeScore(double hours, int tasks, int meetings) {
 
-        // 🔴 STRICT TEST REQUIREMENT
-        // If hours is NaN or negative → return 0 immediately
         if (Double.isNaN(hours) || hours < 0) {
             return 0.0;
         }
