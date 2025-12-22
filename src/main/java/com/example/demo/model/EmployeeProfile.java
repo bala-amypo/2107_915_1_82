@@ -30,7 +30,6 @@ public class EmployeeProfile {
         createdAt = LocalDateTime.now();
     }
 
-    // getters & setters
     public Long getId() { return id; }
     public String getEmployeeId() { return employeeId; }
     public void setEmployeeId(String employeeId) { this.employeeId = employeeId; }
