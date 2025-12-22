@@ -1,3 +1,11 @@
+package com.example.demo.controller;
+
+import com.example.demo.model.ProductivityMetricRecord;
+import com.example.demo.service.ProductivityMetricService;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/metrics")
 public class ProductivityMetricController {
@@ -10,11 +18,11 @@ public class ProductivityMetricController {
 
     @PostMapping
     public ProductivityMetricRecord save(@RequestBody ProductivityMetricRecord record) {
-        return service.save(record);   // stored in DB
+        return service.save(record);
     }
 
     @GetMapping
     public List<ProductivityMetricRecord> getAll() {
-        return service.findAll();     // fetched from DB
+        return service.findAll();
     }
 }
