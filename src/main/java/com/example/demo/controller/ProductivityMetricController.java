@@ -1,19 +1,28 @@
-package com.example.demo.config;
+package com.example.demo.controller;
 
-import io.swagger.v3.oas.models.OpenAPI;
-import io.swagger.v3.oas.models.servers.Server;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import com.example.demo.model.ProductivityMetricRecord;
+import com.example.demo.service.ProductivityMetricService;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
-@Configuration
-public class SwaggerConfig {
+@RestController
+@RequestMapping("/api/metrics")
+public class ProductivityMetricController {
 
-    @Bean
-    public OpenAPI customOpenAPI() {
-        return new OpenAPI()
-                .servers(List.of(
-                        new Server().url("http://localhost:9001")
-                ));
+    private final ProductivityMetricService service;
+
+    public ProductivityMetricController(ProductivityMetricService service) {
+        this.service = service;
+    }
+
+    @PostMapping
+    public ProductivityMetricRecord create(@RequestBody ProductivityMetricRecord m) {
+        return service.save(m);
+    }
+
+    @GetMapping
+    public List<ProductivityMetricRecord> getAll() {
+        return service.findAll();
     }
 }
