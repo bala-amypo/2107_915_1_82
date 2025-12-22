@@ -4,11 +4,14 @@ public class ProductivityCalculator {
 
     public static double computeScore(double hours, int tasks, int meetings) {
 
-        // 🔥 TEST REQUIREMENT:
-        // If ANY input is invalid → return 0 directly
-        if (Double.isNaN(hours) || hours < 0 || tasks < 0 || meetings < 0) {
+        // 🔴 STRICT TEST REQUIREMENT
+        // If hours is NaN or negative → return 0 immediately
+        if (Double.isNaN(hours) || hours < 0) {
             return 0.0;
         }
+
+        if (tasks < 0) tasks = 0;
+        if (meetings < 0) meetings = 0;
 
         double score = (hours * 10) + (tasks * 5) - (meetings * 2);
 
