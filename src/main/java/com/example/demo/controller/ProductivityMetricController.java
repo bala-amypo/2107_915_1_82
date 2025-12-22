@@ -17,12 +17,12 @@ public class ProductivityMetricController {
     }
 
     @PostMapping
-    public ProductivityMetricRecord save(@RequestBody ProductivityMetricRecord m) {
-        return service.save(m);
+    public ProductivityMetricRecord save(@RequestBody ProductivityMetricRecord record) {
+        return service.saveMetric(record);
     }
 
     @GetMapping
-    public List<ProductivityMetricRecord> list() {
-        return service.findAll();
+    public List<ProductivityMetricRecord> getAll() {
+        return service.getAllMetrics();
     }
 }
