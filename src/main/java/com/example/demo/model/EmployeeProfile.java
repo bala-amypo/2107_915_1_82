@@ -1,17 +1,39 @@
-package com.example.demo.service;
+package com.example.demo.model;
 
-import com.example.demo.model.EmployeeProfile;
-import java.util.List;
+import jakarta.persistence.*;
 
-public interface EmployeeProfileService {
+@Entity
+@Table(name = "employees")
+public class EmployeeProfile {
 
-    EmployeeProfile createEmployee(EmployeeProfile e);
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    EmployeeProfile getEmployeeById(Long id);
+    private String employeeId;
+    private String name;
+    private String email;
+    private String team;
+    private boolean active = true;
 
-    List<EmployeeProfile> getAllEmployees();
+    public EmployeeProfile() {}
 
-    EmployeeProfile updateEmployee(Long id, EmployeeProfile e);
+    // getters & setters
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    EmployeeProfile updateEmployeeStatus(Long id, boolean active);
+    public String getEmployeeId() { return employeeId; }
+    public void setEmployeeId(String employeeId) { this.employeeId = employeeId; }
+
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
+
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
+
+    public String getTeam() { return team; }
+    public void setTeam(String team) { this.team = team; }
+
+    public boolean isActive() { return active; }
+    public void setActive(boolean active) { this.active = active; }
 }

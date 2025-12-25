@@ -14,13 +14,16 @@ public class ProductivityMetricRecord {
     private String employeeId;
     private double hoursWorked;
     private int tasksCompleted;
-    private int meetings;
-    private double score;
+    private int meetingsAttended;
+    private double productivityScore;
+    private LocalDate date;
 
-    private LocalDate date = LocalDate.now();
+    public ProductivityMetricRecord() {}
 
     // getters & setters
     public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+
     public String getEmployeeId() { return employeeId; }
     public void setEmployeeId(String employeeId) { this.employeeId = employeeId; }
 
@@ -30,11 +33,12 @@ public class ProductivityMetricRecord {
     public int getTasksCompleted() { return tasksCompleted; }
     public void setTasksCompleted(int tasksCompleted) { this.tasksCompleted = tasksCompleted; }
 
-    public int getMeetings() { return meetings; }
-    public void setMeetings(int meetings) { this.meetings = meetings; }
+    public int getMeetingsAttended() { return meetingsAttended; }
+    public void setMeetingsAttended(int meetingsAttended) { this.meetingsAttended = meetingsAttended; }
 
-    public double getScore() { return score; }
-    public void setScore(double score) { this.score = score; }
+    public double getProductivityScore() { return productivityScore; }
+    public void setProductivityScore(double productivityScore) { this.productivityScore = productivityScore; }
 
     public LocalDate getDate() { return date; }
+    public void setDate(LocalDate date) { this.date = date; }
 }
