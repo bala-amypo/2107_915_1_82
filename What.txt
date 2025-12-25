@@ -4,37 +4,37 @@ demo/
 │   ├── DemoApplication.java
 │
 │   ├── controller/
-│   │   ├── 
-│   │   ├── 
-│   │   ├── 
-│   │   └── 
+│   │   ├── EmployeeProfileController.java
+│   │   ├── ProductivityMetricController.java
+│   │   ├── AnomalyController.java
+│   │   └── TeamSummaryController.java
 │
 │   ├── model/
-│   │   ├── 
-│   │   ├── 
-│   │   ├── 
-│   │   ├── 
-│   │   ├── 
-│   │   └── 
+│   │   ├── EmployeeProfile.java
+│   │   ├── ProductivityMetricRecord.java
+│   │   ├── TeamSummaryRecord.java
+│   │   ├── AnomalyRule.java
+│   │   ├── AnomalyFlagRecord.java
+│   │   └── UserAccount.java
 │
 │   ├── repository/
-│   │   ├── 
-│   │   ├── 
-│   │   ├── 
-│   │   ├── 
-│   │   └── 
+│   │   ├── EmployeeProfileRepository.java
+│   │   ├── ProductivityMetricRecordRepository.java
+│   │   ├── TeamSummaryRepository.java
+│   │   ├── AnomalyRuleRepository.java
+│   │   └── AnomalyFlagRecordRepository.java
 │
 │   ├── service/
-│   │   ├── 
-│   │   ├── 
-│   │   ├── 
-│   │   ├── 
+│   │   ├── EmployeeProfileService.java
+│   │   ├── ProductivityMetricService.java
+│   │   ├── TeamSummaryService.java
+│   │   ├── AnomalyFlagService.java
 │
 │   ├── service/impl/
-│   │   ├── 
-│   │   ├── 
-│   │   ├──
-│   │   └── 
+│   │   ├── EmployeeProfileServiceImpl.java
+│   │   ├── ProductivityMetricServiceImpl.java
+│   │   ├── TeamSummaryServiceImpl.java
+│   │   └── AnomalyFlagServiceImpl.java
 │
 │   └── util/
-│       └── 
+│       └── ProductivityCalculator.java

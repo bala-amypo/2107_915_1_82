@@ -1,23 +1,25 @@
 package com.example.demo.model;
 
-import jakarta.persistence.*;
-
-@Entity
 public class AnomalyFlagRecord {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long metricId;
+    private String ruleCode;
+    private String severity;
+    private String details;
+    private Boolean resolved = false;
 
-    private String employeeId;
-    private String reason;
-    private boolean resolved = false;
+    public Long getMetricId() { return metricId; }
+    public void setMetricId(Long metricId) { this.metricId = metricId; }
 
-    public Long getId() { return id; }
-    public String getEmployeeId() { return employeeId; }
-    public void setEmployeeId(String employeeId) { this.employeeId = employeeId; }
-    public String getReason() { return reason; }
-    public void setReason(String reason) { this.reason = reason; }
-    public boolean isResolved() { return resolved; }
-    public void setResolved(boolean resolved) { this.resolved = resolved; }
+    public String getRuleCode() { return ruleCode; }
+    public void setRuleCode(String ruleCode) { this.ruleCode = ruleCode; }
+
+    public String getSeverity() { return severity; }
+    public void setSeverity(String severity) { this.severity = severity; }
+
+    public String getDetails() { return details; }
+    public void setDetails(String details) { this.details = details; }
+
+    public Boolean getResolved() { return resolved; }
+    public void setResolved(Boolean resolved) { this.resolved = resolved; }
 }
