@@ -1,11 +1,3 @@
-package com.example.demo.controller;
-
-import com.example.demo.model.EmployeeProfile;
-import com.example.demo.service.EmployeeProfileService;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-
 @RestController
 @RequestMapping("/employees")
 public class EmployeeProfileController {
@@ -17,8 +9,13 @@ public class EmployeeProfileController {
     }
 
     @PostMapping
-    public EmployeeProfile create(@RequestBody EmployeeProfile employee) {
-        return service.createEmployee(employee);
+    public EmployeeProfile create(@RequestBody EmployeeProfile e) {
+        return service.createEmployee(e);
+    }
+
+    @GetMapping
+    public List<EmployeeProfile> getAll() {
+        return service.getAllEmployees();
     }
 
     @GetMapping("/{id}")
@@ -28,18 +25,13 @@ public class EmployeeProfileController {
 
     @PutMapping("/{id}")
     public EmployeeProfile update(@PathVariable Long id,
-                                  @RequestBody EmployeeProfile employee) {
-        return service.updateEmployee(id, employee);
+                                  @RequestBody EmployeeProfile e) {
+        return service.updateEmployee(id, e);
     }
 
     @PutMapping("/{id}/status")
-    public EmployeeProfile updateStatus(@PathVariable Long id,
-                                        @RequestParam boolean active) {
+    public EmployeeProfile status(@PathVariable Long id,
+                                  @RequestParam boolean active) {
         return service.updateEmployeeStatus(id, active);
-    }
-
-    @GetMapping
-    public List<EmployeeProfile> getAll() {
-        return service.getAllEmployees();
     }
 }

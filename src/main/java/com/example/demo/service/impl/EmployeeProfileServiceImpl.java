@@ -6,7 +6,6 @@ import com.example.demo.service.EmployeeProfileService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class EmployeeProfileServiceImpl implements EmployeeProfileService {
@@ -18,17 +17,33 @@ public class EmployeeProfileServiceImpl implements EmployeeProfileService {
     }
 
     @Override
-    public EmployeeProfile save(EmployeeProfile e) {
-        return repo.save(e);
+    public EmployeeProfile createEmployee(EmployeeProfile employee) {
+        return repo.save(employee);
     }
 
     @Override
-    public List<EmployeeProfile> findAll() {
+    public EmployeeProfile getEmployeeById(Long id) {
+        return repo.findById(id).orElseThrow();
+    }
+
+    @Override
+    public List<EmployeeProfile> getAllEmployees() {
         return repo.findAll();
     }
 
     @Override
-    public Optional<EmployeeProfile> findByEmployeeId(String employeeId) {
-        return repo.findByEmployeeId(employeeId);
+    public EmployeeProfile updateEmployee(Long id, EmployeeProfile employee) {
+        EmployeeProfile e = getEmployeeById(id);
+        e.setName(employee.getName());
+        e.setEmail(employee.getEmail());
+        e.setTeam(employee.getTeam());
+        return repo.save(e);
+    }
+
+    @Override
+    public EmployeeProfile updateEmployeeStatus(Long id, boolean active) {
+        EmployeeProfile e = getEmployeeById(id);
+        e.setActive(active);
+        return repo.save(e);
     }
 }
