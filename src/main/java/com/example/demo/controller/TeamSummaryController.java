@@ -16,6 +16,11 @@ public class TeamSummaryController {
         this.service = service;
     }
 
+    @PostMapping
+    public TeamSummaryRecord create(@RequestBody TeamSummaryRecord record) {
+        return service.saveSummary(record);
+    }
+
     @GetMapping
     public List<TeamSummaryRecord> getAll() {
         return service.getAllSummaries();
