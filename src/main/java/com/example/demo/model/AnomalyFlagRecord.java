@@ -3,7 +3,6 @@ package com.example.demo.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "anomaly_flags")
 public class AnomalyFlagRecord {
 
     @Id
@@ -14,18 +13,11 @@ public class AnomalyFlagRecord {
     private String reason;
     private boolean resolved = false;
 
-    public AnomalyFlagRecord() {}
-
-    // getters & setters
     public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-
     public String getEmployeeId() { return employeeId; }
     public void setEmployeeId(String employeeId) { this.employeeId = employeeId; }
-
     public String getReason() { return reason; }
     public void setReason(String reason) { this.reason = reason; }
-
     public boolean isResolved() { return resolved; }
     public void setResolved(boolean resolved) { this.resolved = resolved; }
 }
