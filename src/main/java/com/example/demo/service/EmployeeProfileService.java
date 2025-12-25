@@ -9,13 +9,13 @@ public interface EmployeeProfileService {
 
     EmployeeProfile createEmployee(EmployeeProfile employee);
 
-    EmployeeProfile getEmployeeById(Long id);
-
-    List<EmployeeProfile> getAllEmployees();
-
     EmployeeProfile updateEmployee(Long id, EmployeeProfile employee);
 
     EmployeeProfile updateEmployeeStatus(Long id, boolean active);
 
+    EmployeeProfile getEmployeeById(Long id);
+
     Optional<EmployeeProfile> findByEmployeeId(String employeeId);
+
+    List<EmployeeProfile> getAllEmployees();
 }
