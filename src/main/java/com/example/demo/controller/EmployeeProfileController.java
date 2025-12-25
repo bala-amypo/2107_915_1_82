@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/employees")
+@RequestMapping("/employees")
 public class EmployeeProfileController {
 
     private final EmployeeProfileService service;
@@ -17,23 +17,29 @@ public class EmployeeProfileController {
     }
 
     @PostMapping
-    public EmployeeProfile create(@RequestBody EmployeeProfile emp) {
-        return service.createEmployee(emp);
+    public EmployeeProfile create(@RequestBody EmployeeProfile employee) {
+        return service.createEmployee(employee);
     }
 
     @GetMapping("/{id}")
-    public EmployeeProfile getById(@PathVariable Long id) {
+    public EmployeeProfile get(@PathVariable Long id) {
         return service.getEmployeeById(id);
     }
 
     @PutMapping("/{id}")
     public EmployeeProfile update(@PathVariable Long id,
-                                  @RequestBody EmployeeProfile emp) {
-        return service.updateEmployee(id, emp);
+                                  @RequestBody EmployeeProfile employee) {
+        return service.updateEmployee(id, employee);
     }
 
-    @PutMapping("/{id}/deactivate")
-    public EmployeeProfile deactivate(@PathVariable Long id) {
-        return service.updateEmployeeStatus(id, false);
+    @PutMapping("/{id}/status")
+    public EmployeeProfile updateStatus(@PathVariable Long id,
+                                        @RequestParam boolean active) {
+        return service.updateEmployeeStatus(id, active);
+    }
+
+    @GetMapping
+    public List<EmployeeProfile> getAll() {
+        return service.getAllEmployees();
     }
 }

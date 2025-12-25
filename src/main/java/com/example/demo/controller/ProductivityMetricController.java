@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/metrics")
+@RequestMapping("/metrics")
 public class ProductivityMetricController {
 
     private final ProductivityMetricService service;
@@ -17,14 +17,14 @@ public class ProductivityMetricController {
     }
 
     @PostMapping
-    public ProductivityMetricRecord record(@RequestBody ProductivityMetricRecord m) {
-        return service.recordMetric(m);
+    public ProductivityMetricRecord create(@RequestBody ProductivityMetricRecord record) {
+        return service.recordMetric(record);
     }
 
     @PutMapping("/{id}")
     public ProductivityMetricRecord update(@PathVariable Long id,
-                                           @RequestBody ProductivityMetricRecord m) {
-        return service.updateMetric(id, m);
+                                           @RequestBody ProductivityMetricRecord record) {
+        return service.updateMetric(id, record);
     }
 
     @GetMapping

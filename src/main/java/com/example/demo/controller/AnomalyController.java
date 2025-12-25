@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/anomalies")
+@RequestMapping("/anomalies")
 public class AnomalyController {
 
     private final AnomalyFlagService service;
