@@ -7,9 +7,9 @@ import java.util.Optional;
 
 public interface ProductivityMetricService {
 
-    ProductivityMetricRecord recordMetric(ProductivityMetricRecord metric);
+    ProductivityMetricRecord recordMetric(ProductivityMetricRecord record);
 
-    ProductivityMetricRecord updateMetric(Long id, ProductivityMetricRecord metric);
+    ProductivityMetricRecord updateMetric(Long id, ProductivityMetricRecord record);
 
     Optional<ProductivityMetricRecord> getMetricById(Long id);
 
