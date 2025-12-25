@@ -1,6 +1,7 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 public class TeamSummaryRecord {
@@ -10,31 +11,30 @@ public class TeamSummaryRecord {
     private Long id;
 
     private String teamName;
-    private int totalEmployees;
-    private double averageProductivity;
+    private Double avgHoursLogged;
+    private Double avgScore;
+    private Integer anomalyCount;
+    private LocalDate summaryDate;
 
-    // ✅ REQUIRED by JPA + Test cases
+    // ✅ REQUIRED: NO-ARGS constructor
     public TeamSummaryRecord() {}
 
-    // (Optional convenience constructor – safe)
-    public TeamSummaryRecord(String teamName, int totalEmployees, double averageProductivity) {
-        this.teamName = teamName;
-        this.totalEmployees = totalEmployees;
-        this.averageProductivity = averageProductivity;
-    }
-
-    // ✅ Getters & Setters (tests rely on these)
+    // getters & setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
     public String getTeamName() { return teamName; }
     public void setTeamName(String teamName) { this.teamName = teamName; }
 
-    public int getTotalEmployees() { return totalEmployees; }
-    public void setTotalEmployees(int totalEmployees) { this.totalEmployees = totalEmployees; }
+    public Double getAvgHoursLogged() { return avgHoursLogged; }
+    public void setAvgHoursLogged(Double avgHoursLogged) { this.avgHoursLogged = avgHoursLogged; }
 
-    public double getAverageProductivity() { return averageProductivity; }
-    public void setAverageProductivity(double averageProductivity) {
-        this.averageProductivity = averageProductivity;
-    }
+    public Double getAvgScore() { return avgScore; }
+    public void setAvgScore(Double avgScore) { this.avgScore = avgScore; }
+
+    public Integer getAnomalyCount() { return anomalyCount; }
+    public void setAnomalyCount(Integer anomalyCount) { this.anomalyCount = anomalyCount; }
+
+    public LocalDate getSummaryDate() { return summaryDate; }
+    public void setSummaryDate(LocalDate summaryDate) { this.summaryDate = summaryDate; }
 }

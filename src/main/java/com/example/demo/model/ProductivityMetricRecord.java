@@ -22,6 +22,11 @@ public class ProductivityMetricRecord {
     public void setId(Long id) {
         this.id = id;
     }
+    
+    public void setId(Long id) {
+    this.id = id;
+    }
+
 
     public String getEmployeeId() {
         return employeeId;
@@ -46,4 +51,5 @@ public class ProductivityMetricRecord {
     public void setTasksCompleted(int tasksCompleted) {
         this.tasksCompleted = tasksCompleted;
     }
+    
 }

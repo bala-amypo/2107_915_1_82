@@ -4,14 +4,11 @@ import com.example.demo.model.TeamSummaryRecord;
 
 public class TeamSummaryUtil {
 
-    public static TeamSummaryRecord buildSummary(
-            String teamName, int totalEmployees, double avgProductivity) {
-
-        TeamSummaryRecord record = new TeamSummaryRecord();
-        record.setTeamName(teamName);
-        record.setTotalEmployees(totalEmployees);
-        record.setAverageProductivity(avgProductivity);
-
-        return record;
+    public static TeamSummaryRecord emptySummary() {
+        TeamSummaryRecord r = new TeamSummaryRecord();
+        r.setAvgHoursLogged(0.0);
+        r.setAvgScore(0.0);
+        r.setAnomalyCount(0);
+        return r;
     }
 }

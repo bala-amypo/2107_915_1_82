@@ -5,7 +5,7 @@ import java.util.List;
 
 public interface TeamSummaryService {
 
-    TeamSummaryRecord saveSummary(TeamSummaryRecord record);
+    TeamSummaryRecord saveSummary(TeamSummaryRecord r);
 
     List<TeamSummaryRecord> getAllSummaries();
 }
