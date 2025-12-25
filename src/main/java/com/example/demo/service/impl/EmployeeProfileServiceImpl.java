@@ -6,6 +6,7 @@ import com.example.demo.service.EmployeeProfileService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class EmployeeProfileServiceImpl implements EmployeeProfileService {
@@ -16,29 +17,39 @@ public class EmployeeProfileServiceImpl implements EmployeeProfileService {
         this.repo = repo;
     }
 
-    public EmployeeProfile createEmployee(EmployeeProfile e) {
-        return repo.save(e);
+    @Override
+    public EmployeeProfile createEmployee(EmployeeProfile employee) {
+        return repo.save(employee);
     }
 
+    @Override
     public EmployeeProfile getEmployeeById(Long id) {
-        return repo.findById(id).orElseThrow();
+        return repo.findById(id).orElse(null);
     }
 
+    @Override
     public List<EmployeeProfile> getAllEmployees() {
         return repo.findAll();
     }
 
-    public EmployeeProfile updateEmployee(Long id, EmployeeProfile e) {
-        EmployeeProfile old = getEmployeeById(id);
-        old.setName(e.getName());
-        old.setEmail(e.getEmail());
-        old.setTeam(e.getTeam());
-        return repo.save(old);
+    @Override
+    public EmployeeProfile updateEmployee(Long id, EmployeeProfile employee) {
+        employee.setId(id);
+        return repo.save(employee);
     }
 
+    @Override
     public EmployeeProfile updateEmployeeStatus(Long id, boolean active) {
-        EmployeeProfile e = getEmployeeById(id);
-        e.setActive(active);
-        return repo.save(e);
+        EmployeeProfile e = repo.findById(id).orElse(null);
+        if (e != null) {
+            e.setActive(active);
+            return repo.save(e);
+        }
+        return null;
+    }
+
+    @Override
+    public Optional<EmployeeProfile> findByEmployeeId(String employeeId) {
+        return repo.findByEmployeeId(employeeId);
     }
 }

@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/employees")
+@RequestMapping("/employees")
 public class EmployeeProfileController {
 
     private final EmployeeProfileService service;
@@ -16,37 +16,28 @@ public class EmployeeProfileController {
         this.service = service;
     }
 
-    // CREATE
     @PostMapping
-    public EmployeeProfile create(@RequestBody EmployeeProfile employee) {
-        return service.createEmployee(employee);
+    public EmployeeProfile create(@RequestBody EmployeeProfile e) {
+        return service.createEmployee(e);
     }
 
-    // READ BY ID
     @GetMapping("/{id}")
-    public EmployeeProfile getById(@PathVariable Long id) {
+    public EmployeeProfile get(@PathVariable Long id) {
         return service.getEmployeeById(id);
     }
 
-    // READ ALL
     @GetMapping
-    public List<EmployeeProfile> getAll() {
+    public List<EmployeeProfile> all() {
         return service.getAllEmployees();
     }
 
-    // UPDATE FULL
     @PutMapping("/{id}")
-    public EmployeeProfile update(
-            @PathVariable Long id,
-            @RequestBody EmployeeProfile employee) {
-        return service.updateEmployee(id, employee);
+    public EmployeeProfile update(@PathVariable Long id, @RequestBody EmployeeProfile e) {
+        return service.updateEmployee(id, e);
     }
 
-    // UPDATE STATUS
     @PutMapping("/{id}/status")
-    public EmployeeProfile updateStatus(
-            @PathVariable Long id,
-            @RequestParam boolean active) {
+    public EmployeeProfile status(@PathVariable Long id, @RequestParam boolean active) {
         return service.updateEmployeeStatus(id, active);
     }
 }

@@ -3,10 +3,10 @@ package com.example.demo.service.impl;
 import com.example.demo.model.ProductivityMetricRecord;
 import com.example.demo.repository.ProductivityMetricRecordRepository;
 import com.example.demo.service.ProductivityMetricService;
-import com.example.demo.util.ProductivityCalculator;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProductivityMetricServiceImpl implements ProductivityMetricService {
@@ -17,31 +17,23 @@ public class ProductivityMetricServiceImpl implements ProductivityMetricService 
         this.repo = repo;
     }
 
-    public ProductivityMetricRecord recordMetric(ProductivityMetricRecord m) {
-        double score = ProductivityCalculator.computeScore(
-                m.getHoursWorked(),
-                m.getTasksCompleted(),
-                m.getMeetingsAttended()
-        );
-        m.setProductivityScore(score);
-        return repo.save(m);
+    @Override
+    public ProductivityMetricRecord recordMetric(ProductivityMetricRecord record) {
+        return repo.save(record);
     }
 
-    public ProductivityMetricRecord updateMetric(Long id, ProductivityMetricRecord m) {
-        ProductivityMetricRecord old = repo.findById(id).orElseThrow();
-        old.setHoursWorked(m.getHoursWorked());
-        old.setTasksCompleted(m.getTasksCompleted());
-        old.setMeetingsAttended(m.getMeetingsAttended());
-        old.setProductivityScore(
-                ProductivityCalculator.computeScore(
-                        m.getHoursWorked(),
-                        m.getTasksCompleted(),
-                        m.getMeetingsAttended()
-                )
-        );
-        return repo.save(old);
+    @Override
+    public ProductivityMetricRecord updateMetric(Long id, ProductivityMetricRecord record) {
+        record.setId(id);
+        return repo.save(record);
     }
 
+    @Override
+    public Optional<ProductivityMetricRecord> getMetricById(Long id) {
+        return repo.findById(id);
+    }
+
+    @Override
     public List<ProductivityMetricRecord> getAllMetrics() {
         return repo.findAll();
     }
