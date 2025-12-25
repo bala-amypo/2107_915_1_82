@@ -1,5 +1,13 @@
+package com.example.demo.controller;
+
+import com.example.demo.model.EmployeeProfile;
+import com.example.demo.service.EmployeeProfileService;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
 @RestController
-@RequestMapping("/employees")
+@RequestMapping("/api/employees")
 public class EmployeeProfileController {
 
     private final EmployeeProfileService service;
@@ -8,30 +16,37 @@ public class EmployeeProfileController {
         this.service = service;
     }
 
+    // POST – create employee
     @PostMapping
-    public EmployeeProfile create(@RequestBody EmployeeProfile e) {
-        return service.createEmployee(e);
+    public EmployeeProfile createEmployee(@RequestBody EmployeeProfile employee) {
+        return service.createEmployee(employee);
     }
 
-    @GetMapping
-    public List<EmployeeProfile> getAll() {
-        return service.getAllEmployees();
-    }
-
+    // GET – get employee by id
     @GetMapping("/{id}")
-    public EmployeeProfile get(@PathVariable Long id) {
+    public EmployeeProfile getEmployee(@PathVariable Long id) {
         return service.getEmployeeById(id);
     }
 
-    @PutMapping("/{id}")
-    public EmployeeProfile update(@PathVariable Long id,
-                                  @RequestBody EmployeeProfile e) {
-        return service.updateEmployee(id, e);
+    // GET – all employees
+    @GetMapping
+    public List<EmployeeProfile> getAllEmployees() {
+        return service.getAllEmployees();
     }
 
+    // PUT – update employee details
+    @PutMapping("/{id}")
+    public EmployeeProfile updateEmployee(
+            @PathVariable Long id,
+            @RequestBody EmployeeProfile employee) {
+        return service.updateEmployee(id, employee);
+    }
+
+    // PUT – activate / deactivate employee
     @PutMapping("/{id}/status")
-    public EmployeeProfile status(@PathVariable Long id,
-                                  @RequestParam boolean active) {
+    public EmployeeProfile updateStatus(
+            @PathVariable Long id,
+            @RequestParam boolean active) {
         return service.updateEmployeeStatus(id, active);
     }
 }

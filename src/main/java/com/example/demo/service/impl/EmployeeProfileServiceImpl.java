@@ -16,31 +16,26 @@ public class EmployeeProfileServiceImpl implements EmployeeProfileService {
         this.repo = repo;
     }
 
-    @Override
-    public EmployeeProfile createEmployee(EmployeeProfile employee) {
-        return repo.save(employee);
+    public EmployeeProfile createEmployee(EmployeeProfile e) {
+        return repo.save(e);
     }
 
-    @Override
     public EmployeeProfile getEmployeeById(Long id) {
         return repo.findById(id).orElseThrow();
     }
 
-    @Override
     public List<EmployeeProfile> getAllEmployees() {
         return repo.findAll();
     }
 
-    @Override
-    public EmployeeProfile updateEmployee(Long id, EmployeeProfile employee) {
-        EmployeeProfile e = getEmployeeById(id);
-        e.setName(employee.getName());
-        e.setEmail(employee.getEmail());
-        e.setTeam(employee.getTeam());
-        return repo.save(e);
+    public EmployeeProfile updateEmployee(Long id, EmployeeProfile e) {
+        EmployeeProfile old = getEmployeeById(id);
+        old.setName(e.getName());
+        old.setEmail(e.getEmail());
+        old.setTeam(e.getTeam());
+        return repo.save(old);
     }
 
-    @Override
     public EmployeeProfile updateEmployeeStatus(Long id, boolean active) {
         EmployeeProfile e = getEmployeeById(id);
         e.setActive(active);

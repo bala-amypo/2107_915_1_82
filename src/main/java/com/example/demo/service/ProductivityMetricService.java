@@ -4,10 +4,7 @@ import com.example.demo.model.ProductivityMetricRecord;
 import java.util.List;
 
 public interface ProductivityMetricService {
-
-    ProductivityMetricRecord recordMetric(ProductivityMetricRecord record);
-
-    ProductivityMetricRecord updateMetric(Long id, ProductivityMetricRecord record);
-
+    ProductivityMetricRecord recordMetric(ProductivityMetricRecord m);
+    ProductivityMetricRecord updateMetric(Long id, ProductivityMetricRecord m);
     List<ProductivityMetricRecord> getAllMetrics();
 }

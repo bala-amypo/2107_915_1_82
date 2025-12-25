@@ -4,14 +4,9 @@ import com.example.demo.model.EmployeeProfile;
 import java.util.List;
 
 public interface EmployeeProfileService {
-
-    EmployeeProfile createEmployee(EmployeeProfile employee);
-
+    EmployeeProfile createEmployee(EmployeeProfile e);
     EmployeeProfile getEmployeeById(Long id);
-
     List<EmployeeProfile> getAllEmployees();
-
-    EmployeeProfile updateEmployee(Long id, EmployeeProfile employee);
-
+    EmployeeProfile updateEmployee(Long id, EmployeeProfile e);
     EmployeeProfile updateEmployeeStatus(Long id, boolean active);
 }
