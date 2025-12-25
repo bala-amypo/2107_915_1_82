@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/team-summary")
+@RequestMapping("/teams")
 public class TeamSummaryController {
 
     private final TeamSummaryService service;
