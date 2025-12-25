@@ -3,6 +3,7 @@ package com.example.demo.model;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "team_summary")
 public class TeamSummaryRecord {
 
     @Id
@@ -10,18 +11,48 @@ public class TeamSummaryRecord {
     private Long id;
 
     private String teamName;
-    private int totalHours;
-    private int totalTasks;
+    private int totalEmployees;
+    private double averageProductivity;
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    // ✅ REQUIRED: no-arg constructor (JPA)
+    public TeamSummaryRecord() {}
 
-    public String getTeamName() { return teamName; }
-    public void setTeamName(String teamName) { this.teamName = teamName; }
+    // ✅ REQUIRED: constructor used by Util + tests
+    public TeamSummaryRecord(String teamName, int totalEmployees, double averageProductivity) {
+        this.teamName = teamName;
+        this.totalEmployees = totalEmployees;
+        this.averageProductivity = averageProductivity;
+    }
 
-    public int getTotalHours() { return totalHours; }
-    public void setTotalHours(int totalHours) { this.totalHours = totalHours; }
+    public Long getId() {
+        return id;
+    }
 
-    public int getTotalTasks() { return totalTasks; }
-    public void setTotalTasks(int totalTasks) { this.totalTasks = totalTasks; }
+    public String getTeamName() {
+        return teamName;
+    }
+
+    public int getTotalEmployees() {
+        return totalEmployees;
+    }
+
+    public double getAverageProductivity() {
+        return averageProductivity;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setTeamName(String teamName) {
+        this.teamName = teamName;
+    }
+
+    public void setTotalEmployees(int totalEmployees) {
+        this.totalEmployees = totalEmployees;
+    }
+
+    public void setAverageProductivity(double averageProductivity) {
+        this.averageProductivity = averageProductivity;
+    }
 }

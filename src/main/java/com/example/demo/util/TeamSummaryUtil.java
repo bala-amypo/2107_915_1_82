@@ -4,9 +4,12 @@ import com.example.demo.model.TeamSummaryRecord;
 
 public class TeamSummaryUtil {
 
-    private TeamSummaryUtil() {}
-
-    public static TeamSummaryRecord build(String teamName, int employees, double productivity) {
-        return new TeamSummaryRecord(teamName, employees, productivity);
+    public static TeamSummaryRecord buildSummary(
+            String teamName,
+            int totalEmployees,
+            double avgProductivity
+    ) {
+        // ✅ Uses constructor expected by tests
+        return new TeamSummaryRecord(teamName, totalEmployees, avgProductivity);
     }
 }

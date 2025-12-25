@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/team-summary")
+@RequestMapping("/team-summary")
 public class TeamSummaryController {
 
     private final TeamSummaryService service;
@@ -17,12 +17,12 @@ public class TeamSummaryController {
     }
 
     @PostMapping
-    public TeamSummaryRecord create(@RequestBody TeamSummaryRecord record) {
+    public TeamSummaryRecord saveSummary(@RequestBody TeamSummaryRecord record) {
         return service.saveSummary(record);
     }
 
     @GetMapping
-    public List<TeamSummaryRecord> getAll() {
+    public List<TeamSummaryRecord> getAllSummaries() {
         return service.getAllSummaries();
     }
 }
