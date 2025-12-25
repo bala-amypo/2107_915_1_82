@@ -3,35 +3,34 @@ package com.example.demo.service.impl;
 import com.example.demo.model.AnomalyFlagRecord;
 import com.example.demo.repository.AnomalyFlagRecordRepository;
 import com.example.demo.service.AnomalyFlagService;
-import org.springframework.stereotype.Service;
 
+import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
 public class AnomalyFlagServiceImpl implements AnomalyFlagService {
 
-    private final AnomalyFlagRecordRepository repository;
+    private final AnomalyFlagRecordRepository repo;
 
-    public AnomalyFlagServiceImpl(AnomalyFlagRecordRepository repository) {
-        this.repository = repository;
+    public AnomalyFlagServiceImpl(AnomalyFlagRecordRepository repo) {
+        this.repo = repo;
     }
 
     @Override
-    public AnomalyFlagRecord flagAnomaly(AnomalyFlagRecord record) {
-        record.setResolved(false);
-        return repository.save(record);
+    public AnomalyFlagRecord flagAnomaly(AnomalyFlagRecord r) {
+        return repo.save(r);
     }
 
     @Override
     public AnomalyFlagRecord resolveAnomaly(Long id) {
-        AnomalyFlagRecord record = repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Anomaly not found"));
-        record.setResolved(true);
-        return repository.save(record);
+        AnomalyFlagRecord f = repo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Flag not found"));
+        f.setResolved(true);
+        return repo.save(f);
     }
 
     @Override
     public List<AnomalyFlagRecord> getAllFlags() {
-        return repository.findAll();
+        return repo.findAll();
     }
 }

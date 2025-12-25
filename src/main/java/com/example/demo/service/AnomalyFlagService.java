@@ -5,7 +5,7 @@ import java.util.List;
 
 public interface AnomalyFlagService {
 
-    AnomalyFlagRecord flagAnomaly(AnomalyFlagRecord record);
+    AnomalyFlagRecord flagAnomaly(AnomalyFlagRecord r);
 
     AnomalyFlagRecord resolveAnomaly(Long id);
 

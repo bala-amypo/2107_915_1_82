@@ -20,10 +20,6 @@ public class ProductivityMetricRecord {
 
     // ✅ REQUIRED
     public void setId(Long id) {
-        this.id = id;
-    }
-    
-    public void setId(Long id) {
     this.id = id;
     }
 
