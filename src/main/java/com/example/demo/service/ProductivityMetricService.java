@@ -5,7 +5,8 @@ import java.util.*;
 
 public interface ProductivityMetricService {
 
-    ProductivityMetricRecord recordMetric(ProductivityMetricRecord r);
+    ProductivityMetricRecord recordMetric(ProductivityMetricRecord record);
     Optional<ProductivityMetricRecord> getMetricById(Long id);
     List<ProductivityMetricRecord> getAllMetrics();
+    ProductivityMetricRecord updateMetric(Long id, ProductivityMetricRecord record);
 }

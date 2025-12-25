@@ -1,11 +1,3 @@
-package com.example.demo.controller;
-
-import com.example.demo.model.ProductivityMetricRecord;
-import com.example.demo.service.ProductivityMetricService;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-
 @RestController
 @RequestMapping("/metrics")
 public class ProductivityMetricController {
@@ -21,13 +13,14 @@ public class ProductivityMetricController {
         return service.recordMetric(r);
     }
 
-    @PutMapping("/{id}")
-    public ProductivityMetricRecord update(@PathVariable Long id, @RequestBody ProductivityMetricRecord r) {
-        return service.updateMetric(id, r);
+    @GetMapping
+    public List<ProductivityMetricRecord> getAll() {
+        return service.getAllMetrics();
     }
 
-    @GetMapping
-    public List<ProductivityMetricRecord> all() {
-        return service.getAllMetrics();
+    @PutMapping("/{id}")
+    public ProductivityMetricRecord update(@PathVariable Long id,
+                                           @RequestBody ProductivityMetricRecord r) {
+        return service.updateMetric(id, r);
     }
 }
