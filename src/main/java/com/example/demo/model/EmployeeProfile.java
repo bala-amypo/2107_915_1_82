@@ -3,7 +3,6 @@ package com.example.demo.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "employees")
 public class EmployeeProfile {
 
     @Id
@@ -15,8 +14,6 @@ public class EmployeeProfile {
     private String email;
     private String team;
     private boolean active = true;
-
-    public EmployeeProfile() {}
 
     // getters & setters
     public Long getId() { return id; }
