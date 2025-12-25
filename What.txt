@@ -25,16 +25,16 @@ demo/
 │   │   └── 
 │
 │   ├── service/
-│   │   ├── EmployeeProfileService.java
-│   │   ├── ProductivityMetricService.java
-│   │   ├── TeamSummaryService.java
-│   │   ├── AnomalyFlagService.java
+│   │   ├── 
+│   │   ├── 
+│   │   ├── 
+│   │   ├── 
 │
 │   ├── service/impl/
-│   │   ├── EmployeeProfileServiceImpl.java
-│   │   ├── ProductivityMetricServiceImpl.java
-│   │   ├── TeamSummaryServiceImpl.java
-│   │   └── AnomalyFlagServiceImpl.java
+│   │   ├── 
+│   │   ├── 
+│   │   ├──
+│   │   └── 
 │
 │   └── util/
-│       └── ProductivityCalculator.java
+│       └── 
