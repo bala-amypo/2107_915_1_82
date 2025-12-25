@@ -13,16 +13,13 @@ public class TeamSummaryRecord {
     private String teamName;
     private int totalEmployees;
     private double averageProductivity;
-    private int anomalyCount;
 
     public TeamSummaryRecord() {}
 
-    public TeamSummaryRecord(String teamName, int totalEmployees,
-                             double averageProductivity, int anomalyCount) {
+    public TeamSummaryRecord(String teamName, int totalEmployees, double averageProductivity) {
         this.teamName = teamName;
         this.totalEmployees = totalEmployees;
         this.averageProductivity = averageProductivity;
-        this.anomalyCount = anomalyCount;
     }
 
     public Long getId() {
@@ -33,35 +30,23 @@ public class TeamSummaryRecord {
         return teamName;
     }
 
-    public int getTotalEmployees() {
-        return totalEmployees;
-    }
-
-    public double getAverageProductivity() {
-        return averageProductivity;
-    }
-
-    public int getAnomalyCount() {
-        return anomalyCount;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public void setTeamName(String teamName) {
         this.teamName = teamName;
+    }
+
+    public int getTotalEmployees() {
+        return totalEmployees;
     }
 
     public void setTotalEmployees(int totalEmployees) {
         this.totalEmployees = totalEmployees;
     }
 
-    public void setAverageProductivity(double averageProductivity) {
-        this.averageProductivity = averageProductivity;
+    public double getAverageProductivity() {
+        return averageProductivity;
     }
 
-    public void setAnomalyCount(int anomalyCount) {
-        this.anomalyCount = anomalyCount;
+    public void setAverageProductivity(double averageProductivity) {
+        this.averageProductivity = averageProductivity;
     }
 }
