@@ -16,24 +16,24 @@ public class ProductivityMetricController {
         this.service = service;
     }
 
-    // POST – record metric
+    // CREATE / RECORD
     @PostMapping
-    public ProductivityMetricRecord recordMetric(
+    public ProductivityMetricRecord record(
             @RequestBody ProductivityMetricRecord metric) {
         return service.recordMetric(metric);
     }
 
-    // PUT – update metric
+    // UPDATE
     @PutMapping("/{id}")
-    public ProductivityMetricRecord updateMetric(
+    public ProductivityMetricRecord update(
             @PathVariable Long id,
             @RequestBody ProductivityMetricRecord metric) {
         return service.updateMetric(id, metric);
     }
 
-    // GET – all metrics
+    // READ ALL
     @GetMapping
-    public List<ProductivityMetricRecord> getAllMetrics() {
+    public List<ProductivityMetricRecord> getAll() {
         return service.getAllMetrics();
     }
 }

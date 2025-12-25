@@ -16,15 +16,15 @@ public class AnomalyController {
         this.service = service;
     }
 
-    // GET – all anomaly flags
+    // READ ALL
     @GetMapping
-    public List<AnomalyFlagRecord> getAllFlags() {
+    public List<AnomalyFlagRecord> getAll() {
         return service.getAllFlags();
     }
 
-    // PUT – resolve anomaly
+    // RESOLVE
     @PutMapping("/{id}/resolve")
-    public AnomalyFlagRecord resolveFlag(@PathVariable Long id) {
+    public AnomalyFlagRecord resolve(@PathVariable Long id) {
         return service.resolveFlag(id);
     }
 }

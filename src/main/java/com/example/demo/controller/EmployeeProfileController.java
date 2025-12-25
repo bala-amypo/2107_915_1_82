@@ -16,33 +16,33 @@ public class EmployeeProfileController {
         this.service = service;
     }
 
-    // POST – create employee
+    // CREATE
     @PostMapping
-    public EmployeeProfile createEmployee(@RequestBody EmployeeProfile employee) {
+    public EmployeeProfile create(@RequestBody EmployeeProfile employee) {
         return service.createEmployee(employee);
     }
 
-    // GET – get employee by id
+    // READ BY ID
     @GetMapping("/{id}")
-    public EmployeeProfile getEmployee(@PathVariable Long id) {
+    public EmployeeProfile getById(@PathVariable Long id) {
         return service.getEmployeeById(id);
     }
 
-    // GET – all employees
+    // READ ALL
     @GetMapping
-    public List<EmployeeProfile> getAllEmployees() {
+    public List<EmployeeProfile> getAll() {
         return service.getAllEmployees();
     }
 
-    // PUT – update employee details
+    // UPDATE FULL
     @PutMapping("/{id}")
-    public EmployeeProfile updateEmployee(
+    public EmployeeProfile update(
             @PathVariable Long id,
             @RequestBody EmployeeProfile employee) {
         return service.updateEmployee(id, employee);
     }
 
-    // PUT – activate / deactivate employee
+    // UPDATE STATUS
     @PutMapping("/{id}/status")
     public EmployeeProfile updateStatus(
             @PathVariable Long id,
