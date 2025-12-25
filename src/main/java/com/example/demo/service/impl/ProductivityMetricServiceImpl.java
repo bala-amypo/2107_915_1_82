@@ -18,19 +18,18 @@ public class ProductivityMetricServiceImpl implements ProductivityMetricService 
     }
 
     @Override
-    public ProductivityMetricRecord save(ProductivityMetricRecord m) {
-        m.setProductivityScore(
-                ProductivityCalculator.computeScore(
-                        m.getHoursLogged(),
-                        m.getTasksCompleted(),
-                        m.getMeetingsAttended()
-                )
+    public ProductivityMetricRecord save(ProductivityMetricRecord record) {
+        double score = ProductivityCalculator.computeScore(
+                record.getHoursWorked(),
+                record.getTasksCompleted(),
+                record.getMeetings()
         );
-        return repo.save(m);
+        record.setScore(score);
+        return repo.save(record);
     }
 
     @Override
-    public List<ProductivityMetricRecord> findAll() {
+    public List<ProductivityMetricRecord> getAll() {
         return repo.findAll();
     }
 }

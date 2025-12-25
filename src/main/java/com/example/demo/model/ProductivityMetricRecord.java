@@ -4,36 +4,37 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "productivity_metric_records")
+@Table(name = "productivity_metrics")
 public class ProductivityMetricRecord {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long employeeId;
-    private LocalDate date;
-    private Double hoursLogged;
-    private Integer tasksCompleted;
-    private Integer meetingsAttended;
-    private Double productivityScore;
-    public Long getId() { return id; }
+    private String employeeId;
+    private double hoursWorked;
+    private int tasksCompleted;
+    private int meetings;
+    private double score;
 
-    public Long getEmployeeId() { return employeeId; }
-    public void setEmployeeId(Long employeeId) { this.employeeId = employeeId; }
+    private LocalDate date = LocalDate.now();
+
+    // getters & setters
+    public Long getId() { return id; }
+    public String getEmployeeId() { return employeeId; }
+    public void setEmployeeId(String employeeId) { this.employeeId = employeeId; }
+
+    public double getHoursWorked() { return hoursWorked; }
+    public void setHoursWorked(double hoursWorked) { this.hoursWorked = hoursWorked; }
+
+    public int getTasksCompleted() { return tasksCompleted; }
+    public void setTasksCompleted(int tasksCompleted) { this.tasksCompleted = tasksCompleted; }
+
+    public int getMeetings() { return meetings; }
+    public void setMeetings(int meetings) { this.meetings = meetings; }
+
+    public double getScore() { return score; }
+    public void setScore(double score) { this.score = score; }
 
     public LocalDate getDate() { return date; }
-    public void setDate(LocalDate date) { this.date = date; }
-
-    public Double getHoursLogged() { return hoursLogged; }
-    public void setHoursLogged(Double hoursLogged) { this.hoursLogged = hoursLogged; }
-
-    public Integer getTasksCompleted() { return tasksCompleted; }
-    public void setTasksCompleted(Integer tasksCompleted) { this.tasksCompleted = tasksCompleted; }
-
-    public Integer getMeetingsAttended() { return meetingsAttended; }
-    public void setMeetingsAttended(Integer meetingsAttended) { this.meetingsAttended = meetingsAttended; }
-
-    public Double getProductivityScore() { return productivityScore; }
-    public void setProductivityScore(Double productivityScore) { this.productivityScore = productivityScore; }
 }
