@@ -1,7 +1,3 @@
-package com.example.demo.model;
-
-import jakarta.persistence.*;
-
 @Entity
 public class ProductivityMetricRecord {
 
@@ -9,43 +5,40 @@ public class ProductivityMetricRecord {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String employeeId;
-    private int hoursWorked;
-    private int tasksCompleted;
+    private Long employeeId;
+    private LocalDate date;
 
-    // ✅ REQUIRED
-    public Long getId() {
-        return id;
-    }
+    private Double hoursLogged;
+    private Integer tasksCompleted;
+    private Integer meetingsAttended;
+    private Double productivityScore;
 
-    // ✅ REQUIRED
-    public void setId(Long id) {
-    this.id = id;
-    }
+    private String rawDataJson;
 
+    // 🔥 REQUIRED
+    public ProductivityMetricRecord() {}
 
-    public String getEmployeeId() {
-        return employeeId;
-    }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public void setEmployeeId(String employeeId) {
-        this.employeeId = employeeId;
-    }
+    // getters & setters for ALL fields
+    @Entity
+public class TeamSummaryRecord {
 
-    public int getHoursWorked() {
-        return hoursWorked;
-    }
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    public void setHoursWorked(int hoursWorked) {
-        this.hoursWorked = hoursWorked;
-    }
+    private String teamName;
+    private Double avgHoursLogged;
+    private Double avgScore;
+    private Integer anomalyCount;
+    private LocalDate summaryDate;
 
-    public int getTasksCompleted() {
-        return tasksCompleted;
-    }
+    // 🔥 REQUIRED
+    public TeamSummaryRecord() {}
 
-    public void setTasksCompleted(int tasksCompleted) {
-        this.tasksCompleted = tasksCompleted;
-    }
-    
+    // getters & setters
+}
+
 }

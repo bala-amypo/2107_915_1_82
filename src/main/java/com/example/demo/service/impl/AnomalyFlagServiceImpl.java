@@ -1,30 +1,18 @@
-package com.example.demo.service.impl;
-
-import com.example.demo.model.AnomalyFlagRecord;
-import com.example.demo.repository.AnomalyFlagRecordRepository;
-import com.example.demo.service.AnomalyFlagService;
-
-import org.springframework.stereotype.Service;
-import java.util.List;
-
 @Service
 public class AnomalyFlagServiceImpl implements AnomalyFlagService {
 
-    private final AnomalyFlagRecordRepository repo;
-
-    public AnomalyFlagServiceImpl(AnomalyFlagRecordRepository repo) {
-        this.repo = repo;
-    }
+    @Autowired
+    private AnomalyFlagRecordRepository repo;
 
     @Override
-    public AnomalyFlagRecord flagAnomaly(AnomalyFlagRecord r) {
-        return repo.save(r);
+    public AnomalyFlagRecord flagAnomaly(AnomalyFlagRecord record) {
+        return repo.save(record);
     }
 
     @Override
     public AnomalyFlagRecord resolveAnomaly(Long id) {
         AnomalyFlagRecord f = repo.findById(id)
-                .orElseThrow(() -> new RuntimeException("Flag not found"));
+                .orElseThrow(() -> new RuntimeException("Not found"));
         f.setResolved(true);
         return repo.save(f);
     }
