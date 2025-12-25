@@ -4,7 +4,10 @@ import com.example.demo.model.AnomalyFlagRecord;
 import java.util.List;
 
 public interface AnomalyFlagService {
+
     AnomalyFlagRecord flagAnomaly(AnomalyFlagRecord record);
-    AnomalyFlagRecord resolveFlag(Long id);
-    List<AnomalyFlagRecord> getAll();
+
+    AnomalyFlagRecord resolveAnomaly(Long id);
+
+    List<AnomalyFlagRecord> getAllFlags();
 }

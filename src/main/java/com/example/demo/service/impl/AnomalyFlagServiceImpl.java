@@ -10,29 +10,28 @@ import java.util.List;
 @Service
 public class AnomalyFlagServiceImpl implements AnomalyFlagService {
 
-    private final AnomalyFlagRecordRepository repo;
+    private final AnomalyFlagRecordRepository repository;
 
-    public AnomalyFlagServiceImpl(AnomalyFlagRecordRepository repo) {
-        this.repo = repo;
+    public AnomalyFlagServiceImpl(AnomalyFlagRecordRepository repository) {
+        this.repository = repository;
     }
 
     @Override
     public AnomalyFlagRecord flagAnomaly(AnomalyFlagRecord record) {
-        return repo.save(record);
+        record.setResolved(false);
+        return repository.save(record);
     }
 
     @Override
     public AnomalyFlagRecord resolveAnomaly(Long id) {
-        AnomalyFlagRecord r = repo.findById(id).orElse(null);
-        if (r != null) {
-            r.setResolved(true);
-            return repo.save(r);
-        }
-        return null;
+        AnomalyFlagRecord record = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Anomaly not found"));
+        record.setResolved(true);
+        return repository.save(record);
     }
 
     @Override
     public List<AnomalyFlagRecord> getAllFlags() {
-        return repo.findAll();
+        return repository.findAll();
     }
 }
