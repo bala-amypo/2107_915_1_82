@@ -17,12 +17,23 @@ public class EmployeeProfileController {
     }
 
     @PostMapping
-    public EmployeeProfile create(@RequestBody EmployeeProfile e) {
-        return service.save(e);
+    public EmployeeProfile create(@RequestBody EmployeeProfile emp) {
+        return service.createEmployee(emp);
     }
 
-    @GetMapping
-    public List<EmployeeProfile> getAll() {
-        return service.findAll();
+    @GetMapping("/{id}")
+    public EmployeeProfile getById(@PathVariable Long id) {
+        return service.getEmployeeById(id);
+    }
+
+    @PutMapping("/{id}")
+    public EmployeeProfile update(@PathVariable Long id,
+                                  @RequestBody EmployeeProfile emp) {
+        return service.updateEmployee(id, emp);
+    }
+
+    @PutMapping("/{id}/deactivate")
+    public EmployeeProfile deactivate(@PathVariable Long id) {
+        return service.updateEmployeeStatus(id, false);
     }
 }
