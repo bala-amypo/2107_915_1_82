@@ -3,7 +3,6 @@ package com.example.demo.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "team_summary")
 public class TeamSummaryRecord {
 
     @Id
@@ -11,42 +10,18 @@ public class TeamSummaryRecord {
     private Long id;
 
     private String teamName;
-    private int totalEmployees;
-    private double averageProductivity;
+    private int totalHours;
+    private int totalTasks;
 
-    public TeamSummaryRecord() {}
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public TeamSummaryRecord(String teamName, int totalEmployees, double averageProductivity) {
-        this.teamName = teamName;
-        this.totalEmployees = totalEmployees;
-        this.averageProductivity = averageProductivity;
-    }
+    public String getTeamName() { return teamName; }
+    public void setTeamName(String teamName) { this.teamName = teamName; }
 
-    public Long getId() {
-        return id;
-    }
+    public int getTotalHours() { return totalHours; }
+    public void setTotalHours(int totalHours) { this.totalHours = totalHours; }
 
-    public String getTeamName() {
-        return teamName;
-    }
-
-    public void setTeamName(String teamName) {
-        this.teamName = teamName;
-    }
-
-    public int getTotalEmployees() {
-        return totalEmployees;
-    }
-
-    public void setTotalEmployees(int totalEmployees) {
-        this.totalEmployees = totalEmployees;
-    }
-
-    public double getAverageProductivity() {
-        return averageProductivity;
-    }
-
-    public void setAverageProductivity(double averageProductivity) {
-        this.averageProductivity = averageProductivity;
-    }
+    public int getTotalTasks() { return totalTasks; }
+    public void setTotalTasks(int totalTasks) { this.totalTasks = totalTasks; }
 }

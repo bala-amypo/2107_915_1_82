@@ -17,11 +17,6 @@ public class TeamSummaryServiceImpl implements TeamSummaryService {
     }
 
     @Override
-    public TeamSummaryRecord saveSummary(TeamSummaryRecord record) {
-        return repository.save(record);
-    }
-
-    @Override
     public List<TeamSummaryRecord> getAllSummaries() {
         return repository.findAll();
     }
