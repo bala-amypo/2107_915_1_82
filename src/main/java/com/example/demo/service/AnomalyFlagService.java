@@ -6,8 +6,7 @@ import java.util.List;
 public interface AnomalyFlagService {
 
     AnomalyFlagRecord flagAnomaly(AnomalyFlagRecord record);
-
     AnomalyFlagRecord resolveFlag(Long id);
-
     List<AnomalyFlagRecord> getAll();
+    List<AnomalyFlagRecord> getFlagsByMetric(Long metricId);
 }

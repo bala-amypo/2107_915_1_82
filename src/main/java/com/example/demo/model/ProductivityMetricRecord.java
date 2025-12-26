@@ -16,11 +16,8 @@ public class ProductivityMetricRecord {
     private Integer tasksCompleted;
     private Integer meetingsAttended;
     private Double productivityScore;
-
-    @Column(columnDefinition = "TEXT")
     private String rawDataJson;
-
-    // getters & setters (ALL REQUIRED)
+    
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
