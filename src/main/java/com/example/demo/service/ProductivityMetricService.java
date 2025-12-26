@@ -1,14 +1,20 @@
-package com.example.demo.service;
+@RestController
+@RequestMapping("/api/metrics")
+public class ProductivityMetricController {
 
-import com.example.demo.model.ProductivityMetricRecord;
-import java.util.List;
-import java.util.Optional;
+    private final ProductivityMetricService service;
 
-public interface ProductivityMetricService {
+    public ProductivityMetricController(ProductivityMetricService service) {
+        this.service = service;
+    }
 
-    ProductivityMetricRecord recordMetric(ProductivityMetricRecord record);
+    @PostMapping
+    public ProductivityMetricRecord create(@RequestBody ProductivityMetricRecord r) {
+        return service.recordMetric(r);
+    }
 
-    Optional<ProductivityMetricRecord> getMetricById(Long id);
-
-    List<ProductivityMetricRecord> getAllMetrics();
+    @GetMapping
+    public List<ProductivityMetricRecord> all() {
+        return service.getAllMetrics();
+    }
 }
