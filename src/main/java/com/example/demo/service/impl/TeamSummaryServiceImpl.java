@@ -23,3 +23,4 @@ public class TeamSummaryServiceImpl implements TeamSummaryService {
         return repo.findAll();
     }
 }
+
