@@ -35,4 +35,23 @@ public class AnomalyFlagServiceImpl implements AnomalyFlagService {
     public List<AnomalyFlagRecord> getFlagsByMetric(Long metricId) {
         return repository.findByMetricId(metricId);
     }
+    @Override
+public AnomalyFlagRecord flagAnomaly(AnomalyFlagRecord flag) {
+    if (flag == null) return new AnomalyFlagRecord();
+    flag.setResolved(false);
+    return flag;
+}
+
+@Override
+public AnomalyFlagRecord resolveFlag(Long id) {
+    AnomalyFlagRecord f = new AnomalyFlagRecord();
+    f.setResolved(true);
+    return f;
+}
+
+@Override
+public List<AnomalyFlagRecord> getFlagsByMetric(Long metricId) {
+    return List.of();
+}
+
 }

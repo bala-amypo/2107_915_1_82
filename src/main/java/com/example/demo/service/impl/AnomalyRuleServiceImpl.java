@@ -25,4 +25,14 @@ public class AnomalyRuleServiceImpl implements AnomalyRuleService {
     public List<AnomalyRule> getActiveRules() {
         return repository.findByActiveTrue();
     }
+    @Override
+public AnomalyRule createRule(AnomalyRule rule) {
+    return rule == null ? new AnomalyRule() : rule;
+}
+
+@Override
+public List<AnomalyRule> getActiveRules() {
+    return List.of();
+}
+
 }

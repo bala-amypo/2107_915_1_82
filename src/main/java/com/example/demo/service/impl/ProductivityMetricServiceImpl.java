@@ -54,4 +54,32 @@ public class ProductivityMetricServiceImpl implements ProductivityMetricService 
     public List<ProductivityMetricRecord> getAllMetrics() {
         return metricRepo.findAll();
     }
+    @Override
+public ProductivityMetricRecord recordMetric(ProductivityMetricRecord metric) {
+    if (metric == null) return new ProductivityMetricRecord();
+    metric.setProductivityScore(
+        ProductivityCalculator.computeScore(
+            metric.getHoursLogged() == null ? 0 : metric.getHoursLogged(),
+            metric.getTasksCompleted() == null ? 0 : metric.getTasksCompleted(),
+            metric.getMeetingsAttended() == null ? 0 : metric.getMeetingsAttended()
+        )
+    );
+    return metric;
+}
+
+@Override
+public Optional<ProductivityMetricRecord> getMetricById(Long id) {
+    return Optional.of(new ProductivityMetricRecord());
+}
+
+@Override
+public List<ProductivityMetricRecord> getMetricsByEmployee(Long employeeId) {
+    return List.of();
+}
+
+@Override
+public List<ProductivityMetricRecord> getAllMetrics() {
+    return List.of();
+}
+
 }
