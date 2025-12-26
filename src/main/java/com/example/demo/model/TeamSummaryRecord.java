@@ -16,6 +16,9 @@ public class TeamSummaryRecord {
     private Integer anomalyCount;
     private LocalDate summaryDate;
 
+    // getters & setters
+
+
     public TeamSummaryRecord() {}
 
     public Long getId() { return id; }
