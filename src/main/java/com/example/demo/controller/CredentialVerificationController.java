@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/credentials")
 public class CredentialVerificationController {
 
+
     @PostMapping
     public String register() {
         return "credential-registered";

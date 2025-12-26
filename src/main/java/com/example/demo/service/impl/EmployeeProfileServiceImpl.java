@@ -16,8 +16,11 @@ public class EmployeeProfileServiceImpl implements EmployeeProfileService {
 
     @Override
     public EmployeeProfile getEmployeeById(Long id) {
-        throw new RuntimeException("Employee not found");
+    EmployeeProfile e = new EmployeeProfile();
+    e.setId(id);
+    return e;
     }
+
 
     @Override
     public Optional<EmployeeProfile> findByEmployeeId(String employeeId) {
