@@ -1,13 +1,20 @@
-package com.example.demo;
+package com.example.demo.util;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+public class ProductivityCalculator {
 
-@SpringBootApplication
-public class DemoApplication {
+    public static double computeScore(double hours, int tasks, int meetings) {
 
-	public static void main(String[] args) {
-		SpringApplication.run(DemoApplication.class, args);
-	}
+        // Handle NaN / negative
+        if (Double.isNaN(hours) || hours < 0 || tasks < 0 || meetings < 0) {
+            return 0.0;
+        }
 
+        double score = (hours * 10) + (tasks * 5) - (meetings * 2);
+
+        if (score < 0) score = 0;
+        if (score > 100) score = 100;
+
+        // Round to 2 decimals (TEST 57)
+        return Math.round(score * 100.0) / 100.0;
+    }
 }
