@@ -14,18 +14,13 @@ public class ProductivityMetricRecord {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private Long employeeId;
-
     private LocalDate date;
-
     private Double hoursLogged;
-
     private Integer tasksCompleted;
-
     private Integer meetingsAttended;
-
     private Double productivityScore;
+    private String rawDataJson;
 
     @Column(columnDefinition = "TEXT")
     private String rawDataJson;
