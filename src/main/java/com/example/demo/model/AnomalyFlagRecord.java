@@ -3,16 +3,52 @@ package com.example.demo.model;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "anomaly_flag_records")
 public class AnomalyFlagRecord {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    // ✅ REQUIRED FOR findByMetricId()
+    private Long metricId;
+
     private String ruleCode;
     private String severity;
-    private String details;
     private Boolean resolved = false;
+
+    @Column(length = 1000)
+    private String details;
+
+    public AnomalyFlagRecord() {}
+
+    public Long getId() {
+        return id;
+    }
+
+    public Long getMetricId() {
+        return metricId;
+    }
+
+    public void setMetricId(Long metricId) {
+        this.metricId = metricId;
+    }
+
+    public String getRuleCode() {
+        return ruleCode;
+    }
+
+    public void setRuleCode(String ruleCode) {
+        this.ruleCode = ruleCode;
+    }
+
+    public String getSeverity() {
+        return severity;
+    }
+
+    public void setSeverity(String severity) {
+        this.severity = severity;
+    }
 
     public Boolean getResolved() {
         return resolved;
@@ -22,12 +58,11 @@ public class AnomalyFlagRecord {
         this.resolved = resolved;
     }
 
-    public String getRuleCode() { return ruleCode; }
-    public void setRuleCode(String ruleCode) { this.ruleCode = ruleCode; }
+    public String getDetails() {
+        return details;
+    }
 
-    public String getSeverity() { return severity; }
-    public void setSeverity(String severity) { this.severity = severity; }
-
-    public String getDetails() { return details; }
-    public void setDetails(String details) { this.details = details; }
+    public void setDetails(String details) {
+        this.details = details;
+    }
 }
