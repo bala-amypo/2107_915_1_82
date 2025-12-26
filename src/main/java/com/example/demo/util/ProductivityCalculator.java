@@ -2,21 +2,18 @@ package com.example.demo.util;
 
 public class ProductivityCalculator {
 
-    public static double computeScore(double hoursLogged, int tasksCompleted, int meetingsAttended) {
+    public static double computeScore(double hours, int tasks, int meetings) {
 
-        // 1. Handle invalid inputs
-        if (Double.isNaN(hoursLogged) || hoursLogged <= 0 || tasksCompleted < 0 || meetingsAttended < 0) {
+        if (Double.isNaN(hours) || hours < 0 || tasks < 0 || meetings < 0) {
             return 0.0;
         }
 
-        // 2. Base score calculation
-        double score = (tasksCompleted * 10) + (hoursLogged * 5) - (meetingsAttended * 2);
+        double score = (hours * 10) + (tasks * 5) - (meetings * 2);
 
-        // 3. Clamp score between 0 and 100
         if (score < 0) score = 0;
         if (score > 100) score = 100;
 
-        // 4. Round to 2 decimal places
+        // Round to 2 decimals
         return Math.round(score * 100.0) / 100.0;
     }
 }
