@@ -1,29 +1,25 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.model.AnomalyFlagRecord;
-import com.example.demo.repository.AnomalyFlagRecordRepository;
-import com.example.demo.service.AnomalyFlagService;
+import com.example.demo.model.TeamSummaryRecord;
+import com.example.demo.service.TeamSummaryService;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
-@RestController
-@RequestMapping("/api/team-summary")
-public class TeamSummaryController {
+@Service
+public class TeamSummaryServiceImpl implements TeamSummaryService {
 
-    private final TeamSummaryService service;
+    private final List<TeamSummaryRecord> list = new ArrayList<>();
 
-    public TeamSummaryController(TeamSummaryService service) {
-        this.service = service;
+    @Override
+    public TeamSummaryRecord saveSummary(TeamSummaryRecord record) {
+        list.add(record);
+        return record;
     }
 
-    @PostMapping
-    public TeamSummaryRecord save(@RequestBody TeamSummaryRecord r) {
-        return service.saveSummary(r);
-    }
-
-    @GetMapping
-    public List<TeamSummaryRecord> all() {
-        return service.getAllSummaries();
+    @Override
+    public List<TeamSummaryRecord> getAllSummaries() {
+        return list;
     }
 }

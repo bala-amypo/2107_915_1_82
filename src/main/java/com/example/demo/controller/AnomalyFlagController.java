@@ -1,33 +1,21 @@
-package com.example.demo.controller;
+package com.example.demo.model;
 
-import com.example.demo.model.AnomalyFlagRecord;
-import com.example.demo.service.AnomalyFlagService;
-import org.springframework.web.bind.annotation.*;
+public class AnomalyFlagRecord {
 
-import java.util.List;
+    private String ruleCode;
+    private String severity;
+    private String details;
+    private Boolean resolved;
 
-@RestController
-@RequestMapping("/api/anomalies")
-public class AnomalyFlagController {
+    public String getRuleCode() { return ruleCode; }
+    public void setRuleCode(String ruleCode) { this.ruleCode = ruleCode; }
 
-    private final AnomalyFlagService service;
+    public String getSeverity() { return severity; }
+    public void setSeverity(String severity) { this.severity = severity; }
 
-    public AnomalyFlagController(AnomalyFlagService service) {
-        this.service = service;
-    }
+    public String getDetails() { return details; }
+    public void setDetails(String details) { this.details = details; }
 
-    @PostMapping
-    public AnomalyFlagRecord create(@RequestBody AnomalyFlagRecord flag) {
-        return service.flagAnomaly(flag);
-    }
-
-    @PutMapping("/{id}/resolve")
-    public AnomalyFlagRecord resolve(@PathVariable Long id) {
-        return service.resolveFlag(id);
-    }
-
-    @GetMapping("/metric/{metricId}")
-    public List<AnomalyFlagRecord> getByMetric(@PathVariable Long metricId) {
-        return service.getFlagsByMetric(metricId);
-    }
+    public Boolean getResolved() { return resolved; }
+    public void setResolved(Boolean resolved) { this.resolved = resolved; }
 }

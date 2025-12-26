@@ -7,7 +7,7 @@ public interface AnomalyFlagService {
 
     AnomalyFlagRecord flagAnomaly(AnomalyFlagRecord record);
 
-    AnomalyFlagRecord resolveAnomaly(Long id);
+    AnomalyFlagRecord resolveFlag(Long id);
 
-    List<AnomalyFlagRecord> getAllFlags();
+    List<AnomalyFlagRecord> getFlagsByMetric(Long metricId);
 }

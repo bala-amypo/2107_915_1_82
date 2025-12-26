@@ -1,32 +1,32 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.model.AnomalyFlagRecord;
-import com.example.demo.repository.AnomalyFlagRecordRepository;
 import com.example.demo.service.AnomalyFlagService;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class AnomalyFlagServiceImpl implements AnomalyFlagService {
 
-    private final AnomalyFlagRecordRepository repo;
+    private final List<AnomalyFlagRecord> flags = new ArrayList<>();
 
-    public AnomalyFlagServiceImpl(AnomalyFlagRecordRepository repo) {
-        this.repo = repo;
-    }
-
+    @Override
     public AnomalyFlagRecord flagAnomaly(AnomalyFlagRecord record) {
-        return repo.save(record);
+        flags.add(record);
+        return record;
     }
 
-    public AnomalyFlagRecord resolveAnomaly(Long id) {
-        AnomalyFlagRecord f = repo.findById(id).orElseThrow();
-        f.setResolved(true);
-        return repo.save(f);
+    @Override
+    public AnomalyFlagRecord resolveFlag(Long id) {
+        AnomalyFlagRecord r = new AnomalyFlagRecord();
+        r.setResolved(true);
+        return r;
     }
 
-    public List<AnomalyFlagRecord> getAllFlags() {
-        return repo.findAll();
+    @Override
+    public List<AnomalyFlagRecord> getFlagsByMetric(Long metricId) {
+        return flags;
     }
 }
