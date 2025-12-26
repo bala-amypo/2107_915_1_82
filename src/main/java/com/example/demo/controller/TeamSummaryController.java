@@ -1,27 +1,28 @@
-package com.example.demo.model;
+package com.example.demo.controller;
 
-import java.time.LocalDate;
+import com.example.demo.model.TeamSummaryRecord;
+import com.example.demo.service.TeamSummaryService;
+import org.springframework.web.bind.annotation.*;
 
-public class TeamSummaryRecord {
+import java.util.List;
 
-    private String teamName;
-    private Double avgHoursLogged;
-    private Double avgScore;
-    private Integer anomalyCount;
-    private LocalDate summaryDate;
+@RestController
+@RequestMapping("/api/team-summary")
+public class TeamSummaryController {
 
-    public String getTeamName() { return teamName; }
-    public void setTeamName(String teamName) { this.teamName = teamName; }
+    private final TeamSummaryService service;
 
-    public Double getAvgHoursLogged() { return avgHoursLogged; }
-    public void setAvgHoursLogged(Double avgHoursLogged) { this.avgHoursLogged = avgHoursLogged; }
+    public TeamSummaryController(TeamSummaryService service) {
+        this.service = service;
+    }
 
-    public Double getAvgScore() { return avgScore; }
-    public void setAvgScore(Double avgScore) { this.avgScore = avgScore; }
+    @PostMapping
+    public TeamSummaryRecord save(@RequestBody TeamSummaryRecord record) {
+        return service.saveSummary(record);
+    }
 
-    public Integer getAnomalyCount() { return anomalyCount; }
-    public void setAnomalyCount(Integer anomalyCount) { this.anomalyCount = anomalyCount; }
-
-    public LocalDate getSummaryDate() { return summaryDate; }
-    public void setSummaryDate(LocalDate summaryDate) { this.summaryDate = summaryDate; }
+    @GetMapping
+    public List<TeamSummaryRecord> getAll() {
+        return service.getAllSummaries();
+    }
 }
