@@ -26,6 +26,7 @@ public class AnomalyFlagRecord {
     public String getDetails() { return details; }
     public void setDetails(String details) { this.details = details; }
 
+    // ⚠️ MUST be getResolved(), NOT isResolved()
     public Boolean getResolved() { return resolved; }
     public void setResolved(Boolean resolved) { this.resolved = resolved; }
 }
