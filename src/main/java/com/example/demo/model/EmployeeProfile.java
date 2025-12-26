@@ -18,19 +18,13 @@ public class EmployeeProfile {
     private Long id;
 
     @Column(nullable = false)
+    private Long id;
     private String employeeId;
-
     private String fullName;
-
     private String email;
-
+    private Boolean active;
     private String teamName;
 
-    private String role;
-
-    private Boolean active = true;
-
-    private LocalDateTime createdAt;
 
     public EmployeeProfile() {}
 
