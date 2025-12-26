@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "team_summary_records")
 public class TeamSummaryRecord {
 
     @Id
@@ -17,16 +16,6 @@ public class TeamSummaryRecord {
     private Double avgScore;
     private Integer anomalyCount;
 
-    public TeamSummaryRecord() {}
-
-    public Long getId() { return id; }
-
-    public String getTeamName() { return teamName; }
-    public void setTeamName(String teamName) { this.teamName = teamName; }
-
-    public LocalDate getSummaryDate() { return summaryDate; }
-    public void setSummaryDate(LocalDate summaryDate) { this.summaryDate = summaryDate; }
-
     public Double getAvgHoursLogged() { return avgHoursLogged; }
     public void setAvgHoursLogged(Double avgHoursLogged) { this.avgHoursLogged = avgHoursLogged; }
 
@@ -35,4 +24,10 @@ public class TeamSummaryRecord {
 
     public Integer getAnomalyCount() { return anomalyCount; }
     public void setAnomalyCount(Integer anomalyCount) { this.anomalyCount = anomalyCount; }
+
+    public String getTeamName() { return teamName; }
+    public void setTeamName(String teamName) { this.teamName = teamName; }
+
+    public LocalDate getSummaryDate() { return summaryDate; }
+    public void setSummaryDate(LocalDate summaryDate) { this.summaryDate = summaryDate; }
 }

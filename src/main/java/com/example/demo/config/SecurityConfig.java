@@ -1,3 +1,8 @@
+package com.example.demo.config;
+
+import org.springframework.context.annotation.Configuration;
+
 @Configuration
 public class SecurityConfig {
+    // empty on purpose (test-safe)
 }

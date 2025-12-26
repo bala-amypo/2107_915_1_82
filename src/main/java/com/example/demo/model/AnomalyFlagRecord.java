@@ -3,7 +3,6 @@ package com.example.demo.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "anomaly_flag_records")
 public class AnomalyFlagRecord {
 
     @Id
@@ -15,7 +14,13 @@ public class AnomalyFlagRecord {
     private String details;
     private Boolean resolved = false;
 
-    public AnomalyFlagRecord() {}
+    public Boolean getResolved() {
+        return resolved;
+    }
+
+    public void setResolved(Boolean resolved) {
+        this.resolved = resolved;
+    }
 
     public String getRuleCode() { return ruleCode; }
     public void setRuleCode(String ruleCode) { this.ruleCode = ruleCode; }
@@ -25,8 +30,4 @@ public class AnomalyFlagRecord {
 
     public String getDetails() { return details; }
     public void setDetails(String details) { this.details = details; }
-
-    // ⚠️ MUST be getResolved(), NOT isResolved()
-    public Boolean getResolved() { return resolved; }
-    public void setResolved(Boolean resolved) { this.resolved = resolved; }
 }
