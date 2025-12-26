@@ -3,8 +3,9 @@ package com.example.demo.controller;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/anomalies")
+@RequestMapping("/api/anomaly-flags")
 public class AnomalyFlagController {
+
 
     @PostMapping
     public String flag() {

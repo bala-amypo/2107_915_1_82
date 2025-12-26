@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.model.ProductivityMetricRecord;
 import com.example.demo.service.ProductivityMetricService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,15 +12,12 @@ import java.util.Optional;
 @RequestMapping("/api/metrics")
 public class ProductivityMetricController {
 
-    private final ProductivityMetricService service;
-
-    public ProductivityMetricController(ProductivityMetricService service) {
-        this.service = service;
-    }
+    @Autowired
+    private ProductivityMetricService service;
 
     @PostMapping
-    public ProductivityMetricRecord record(@RequestBody ProductivityMetricRecord metric) {
-        return service.recordMetric(metric);
+    public ProductivityMetricRecord create(@RequestBody ProductivityMetricRecord m) {
+        return service.recordMetric(m);
     }
 
     @GetMapping("/{id}")
