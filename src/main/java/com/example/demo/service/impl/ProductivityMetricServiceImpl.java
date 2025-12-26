@@ -39,4 +39,28 @@ public class ProductivityMetricServiceImpl implements ProductivityMetricService 
     public List<ProductivityMetricRecord> getAllMetrics() {
         return List.of();
     }
+    @Override
+public ProductivityMetricRecord recordMetric(ProductivityMetricRecord metric) {
+
+    if (metric == null || metric.getEmployeeId() == null) {
+        throw new RuntimeException("Employee not found");
+    }
+
+    List<ProductivityMetricRecord> existing =
+            metricRepo.findByEmployeeId(metric.getEmployeeId());
+
+    if (!existing.isEmpty()) {
+        throw new IllegalStateException("Metric exists");
+    }
+
+    double score = ProductivityCalculator.computeScore(
+            metric.getHoursLogged(),
+            metric.getTasksCompleted(),
+            metric.getMeetingsAttended()
+    );
+
+    metric.setProductivityScore(score);
+    return metricRepo.save(metric);
+    }
+
 }

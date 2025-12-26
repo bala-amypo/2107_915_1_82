@@ -42,4 +42,10 @@ public class EmployeeProfileServiceImpl implements EmployeeProfileService {
         e.setActive(active);
         return e;
     }
+    @Override
+    public EmployeeProfile getEmployeeById(Long id) {
+    return repository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Employee not found"));
+}
+
 }
