@@ -1,4 +1,8 @@
-package com.example.demo.service;
+package com.example.demo.service.impl;
 
-public interface UserAccountService {
+import com.example.demo.service.UserAccountService;
+import org.springframework.stereotype.Service;
+
+@Service
+public class UserAccountServiceImpl implements UserAccountService {
 }
