@@ -6,5 +6,6 @@ import java.util.List;
 public interface TeamSummaryService {
 
     TeamSummaryRecord saveSummary(TeamSummaryRecord record);
+
     List<TeamSummaryRecord> getAllSummaries();
 }
