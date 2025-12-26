@@ -22,7 +22,7 @@ public class TeamSummaryController {
     }
 
     @GetMapping
-    public List<TeamSummaryRecord> getAll() {
+    public List<TeamSummaryRecord> all() {
         return service.getAllSummaries();
     }
 }
