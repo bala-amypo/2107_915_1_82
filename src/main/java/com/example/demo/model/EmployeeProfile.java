@@ -1,12 +1,15 @@
 package com.example.demo.model;
+
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "employee_profiles")
-
 public class EmployeeProfile {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String employeeId;
     private String fullName;
     private String email;
