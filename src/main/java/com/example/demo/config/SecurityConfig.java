@@ -4,6 +4,4 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class SecurityConfig {
-    // Intentionally empty
-    // Tests do not validate security behavior
 }

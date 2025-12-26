@@ -1,17 +1,11 @@
 package com.example.demo.model;
 
-import java.time.LocalDateTime;
-
 public class Credential {
 
     private Long id;
     private Long employeeId;
     private String credentialId;
-    private String issuer;
-    private LocalDateTime issuedAt;
-    private LocalDateTime expiresAt;
     private String status;
-    private String metadataJson;
 
     public Credential() {}
 
