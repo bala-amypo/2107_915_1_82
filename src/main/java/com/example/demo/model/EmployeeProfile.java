@@ -1,4 +1,8 @@
 package com.example.demo.model;
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "employee_profiles")
 
 public class EmployeeProfile {
 
