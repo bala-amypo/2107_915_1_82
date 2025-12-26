@@ -18,7 +18,8 @@ public class ProductivityMetricRecord {
     private Double productivityScore;
     private String rawDataJson;
 
-    // getters & setters
+    // getters & setters ONLY
+
 
     
     public Long getId() { return id; }
