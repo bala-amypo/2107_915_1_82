@@ -1,11 +1,10 @@
 package com.example.demo.service.impl;
 
+import org.springframework.stereotype.Service;
+import java.util.List;
 import com.example.demo.model.TeamSummaryRecord;
 import com.example.demo.repository.TeamSummaryRepository;
 import com.example.demo.service.TeamSummaryService;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class TeamSummaryServiceImpl implements TeamSummaryService {
@@ -16,12 +15,10 @@ public class TeamSummaryServiceImpl implements TeamSummaryService {
         this.repo = repo;
     }
 
-    @Override
     public TeamSummaryRecord saveSummary(TeamSummaryRecord record) {
         return repo.save(record);
     }
 
-    @Override
     public List<TeamSummaryRecord> getAllSummaries() {
         return repo.findAll();
     }
