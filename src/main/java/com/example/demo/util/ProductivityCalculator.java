@@ -13,6 +13,7 @@ public class ProductivityCalculator {
         if (score < 0) score = 0;
         if (score > 100) score = 100;
 
+        // round to 2 decimals
         return Math.round(score * 100.0) / 100.0;
     }
 }

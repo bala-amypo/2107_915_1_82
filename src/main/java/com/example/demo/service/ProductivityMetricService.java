@@ -1,20 +1,13 @@
-@RestController
-@RequestMapping("/api/metrics")
-public class ProductivityMetricController {
+package com.example.demo.service;
 
-    private final ProductivityMetricService service;
+import com.example.demo.model.ProductivityMetricRecord;
+import java.util.*;
 
-    public ProductivityMetricController(ProductivityMetricService service) {
-        this.service = service;
-    }
+public interface ProductivityMetricService {
 
-    @PostMapping
-    public ProductivityMetricRecord create(@RequestBody ProductivityMetricRecord r) {
-        return service.recordMetric(r);
-    }
+    ProductivityMetricRecord recordMetric(ProductivityMetricRecord record);
 
-    @GetMapping
-    public List<ProductivityMetricRecord> all() {
-        return service.getAllMetrics();
-    }
+    Optional<ProductivityMetricRecord> getMetricById(Long id);
+
+    List<ProductivityMetricRecord> getAllMetrics();
 }
