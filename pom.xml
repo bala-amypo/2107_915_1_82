@@ -15,7 +15,7 @@
     <name>demo</name>
     <description>Remote Work Productivity Metrics Collector</description>
 
-    <!-- ✅ Spring Boot Parent -->
+    <!-- Spring Boot Parent -->
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
@@ -23,7 +23,6 @@
         <relativePath/>
     </parent>
 
-    <!-- ✅ Java version must match compiler -->
     <properties>
         <java.version>17</java.version>
     </properties>
@@ -43,7 +42,7 @@
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
 
-        <!-- H2 (safe for tests) -->
+        <!-- H2 Database (safe for tests) -->
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
@@ -57,11 +56,18 @@
             <version>2.5.0</version>
         </dependency>
 
-        <!-- Spring Test -->
+        <!-- Spring Boot Test (JUnit + Mockito support) -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+            <exclusions>
+                <!-- IMPORTANT: remove JUnit Jupiter engine -->
+                <exclusion>
+                    <groupId>org.junit.jupiter</groupId>
+                    <artifactId>junit-jupiter-engine</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <!-- Mockito -->
@@ -71,7 +77,7 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- ✅ TESTNG (CRITICAL FOR YOUR 60 TESTS) -->
+        <!-- ✅ TESTNG (MANDATORY FOR YOUR 60 TESTS) -->
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
@@ -96,13 +102,14 @@
                 </configuration>
             </plugin>
 
-            <!-- ✅ Surefire Plugin for TestNG -->
+            <!-- ✅ FORCE TESTNG (NO JUNIT PLATFORM) -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.2.5</version>
                 <configuration>
                     <useModulePath>false</useModulePath>
+                    <testNGArtifactName>org.testng:testng</testNGArtifactName>
                     <includes>
                         <include>**/*Test.java</include>
                     </includes>
