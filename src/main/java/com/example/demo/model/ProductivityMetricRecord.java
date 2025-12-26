@@ -18,7 +18,7 @@ public class ProductivityMetricRecord {
     private Double productivityScore;
     private String rawDataJson;
 
-    // getters & setters (ALL required by tests)
+    // getters & setters (ALL REQUIRED)
 
     public ProductivityMetricRecord() {}
 
