@@ -12,10 +12,12 @@ public class AnomalyFlagRecord {
     private Long metricId;
     private String ruleCode;
     private String severity;
-    private Boolean resolved = false;
     private String details;
+    private Boolean resolved = false;
 
-    // getters & setters
+    // getters & setters ONLY
+}
+
 
 
     public AnomalyFlagRecord() {}

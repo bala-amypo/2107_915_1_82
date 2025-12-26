@@ -11,12 +11,13 @@ public class TeamSummaryRecord {
     private Long id;
 
     private String teamName;
+    private LocalDate summaryDate;
     private Double avgHoursLogged;
     private Double avgScore;
     private Integer anomalyCount;
-    private LocalDate summaryDate;
 
-    // getters & setters
+    // getters & setters ONLY
+
 }
 
     public String getTeamName() { return teamName; }

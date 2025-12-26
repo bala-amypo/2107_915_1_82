@@ -16,9 +16,13 @@ public class ProductivityMetricRecord {
     private Integer tasksCompleted;
     private Integer meetingsAttended;
     private Double productivityScore;
+
+    @Column(columnDefinition = "TEXT")
     private String rawDataJson;
 
     // getters & setters ONLY
+}
+
 
 
     
