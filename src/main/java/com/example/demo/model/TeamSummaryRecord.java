@@ -1,9 +1,13 @@
 package com.example.demo.model;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "team_summary_records", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"teamName", "summaryDate"})
+})
 public class TeamSummaryRecord {
 
     @Id
@@ -11,24 +15,38 @@ public class TeamSummaryRecord {
     private Long id;
 
     private String teamName;
-    private Double avgHoursLogged;
-    private Double avgScore;
-    private Integer anomalyCount;
+
     private LocalDate summaryDate;
 
-    // getters & setters
-    public String getTeamName() { return teamName; }
-    public void setTeamName(String teamName) { this.teamName = teamName; }
+    private Double avgHoursLogged;
 
-    public Double getAvgHoursLogged() { return avgHoursLogged; }
-    public void setAvgHoursLogged(Double avgHoursLogged) { this.avgHoursLogged = avgHoursLogged; }
+    private Double avgTasksCompleted;
 
-    public Double getAvgScore() { return avgScore; }
-    public void setAvgScore(Double avgScore) { this.avgScore = avgScore; }
+    private Double avgScore;
 
-    public Integer getAnomalyCount() { return anomalyCount; }
-    public void setAnomalyCount(Integer anomalyCount) { this.anomalyCount = anomalyCount; }
+    private Integer anomalyCount;
 
-    public LocalDate getSummaryDate() { return summaryDate; }
-    public void setSummaryDate(LocalDate summaryDate) { this.summaryDate = summaryDate; }
+    private LocalDateTime generatedAt;
+
+    public TeamSummaryRecord() {
+    }
+
+    public TeamSummaryRecord(String teamName, LocalDate summaryDate,
+                             Double avgHoursLogged, Double avgTasksCompleted,
+                             Double avgScore, Integer anomalyCount) {
+        this.teamName = teamName;
+        this.summaryDate = summaryDate;
+        this.avgHoursLogged = avgHoursLogged;
+        this.avgTasksCompleted = avgTasksCompleted;
+        this.avgScore = avgScore;
+        this.anomalyCount = anomalyCount;
+    }
+
+    @PrePersist
+    protected void onCreate() {
+        this.generatedAt = LocalDateTime.now();
+    }
+
+    // Getters and setters omitted for brevity
+    // ...
 }

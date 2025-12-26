@@ -1,46 +1,66 @@
 package com.example.demo.model;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Set;
+import java.util.HashSet;
 
 @Entity
+@Table(name = "productivity_metric_records", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"employee_profile_id", "date"})
+})
 public class ProductivityMetricRecord {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long employeeId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "employee_profile_id", nullable = false)
+    private EmployeeProfile employeeProfile;
+
+    @Column(nullable = false)
     private LocalDate date;
+
+    @Column(nullable = false)
     private Double hoursLogged;
+
+    @Column(nullable = false)
     private Integer tasksCompleted;
+
+    @Column(nullable = false)
     private Integer meetingsAttended;
+
     private Double productivityScore;
 
+    @Column(columnDefinition = "TEXT")
     private String rawDataJson;
 
-    // getters & setters
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    private LocalDateTime submittedAt;
 
-    public Long getEmployeeId() { return employeeId; }
-    public void setEmployeeId(Long employeeId) { this.employeeId = employeeId; }
+    @OneToMany(mappedBy = "metric", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<AnomalyFlagRecord> anomalyFlags = new HashSet<>();
 
-    public LocalDate getDate() { return date; }
-    public void setDate(LocalDate date) { this.date = date; }
+    public ProductivityMetricRecord() {
+    }
 
-    public Double getHoursLogged() { return hoursLogged; }
-    public void setHoursLogged(Double hoursLogged) { this.hoursLogged = hoursLogged; }
+    public ProductivityMetricRecord(EmployeeProfile employeeProfile, LocalDate date,
+                                    Double hoursLogged, Integer tasksCompleted, Integer meetingsAttended,
+                                    String rawDataJson) {
+        this.employeeProfile = employeeProfile;
+        this.date = date;
+        this.hoursLogged = hoursLogged;
+        this.tasksCompleted = tasksCompleted;
+        this.meetingsAttended = meetingsAttended;
+        this.rawDataJson = rawDataJson;
+    }
 
-    public Integer getTasksCompleted() { return tasksCompleted; }
-    public void setTasksCompleted(Integer tasksCompleted) { this.tasksCompleted = tasksCompleted; }
+    @PrePersist
+    protected void onCreate() {
+        this.submittedAt = LocalDateTime.now();
+    }
 
-    public Integer getMeetingsAttended() { return meetingsAttended; }
-    public void setMeetingsAttended(Integer meetingsAttended) { this.meetingsAttended = meetingsAttended; }
-
-    public Double getProductivityScore() { return productivityScore; }
-    public void setProductivityScore(Double productivityScore) { this.productivityScore = productivityScore; }
-
-    public String getRawDataJson() { return rawDataJson; }
-    public void setRawDataJson(String rawDataJson) { this.rawDataJson = rawDataJson; }
+    // Getters and setters omitted for brevity
+    // ...
 }

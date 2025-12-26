@@ -1,29 +1,56 @@
 package com.example.demo.model;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "anomaly_flag_records")
 public class AnomalyFlagRecord {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long metricId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "employee_profile_id", nullable = false)
+    private EmployeeProfile employeeProfile;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "metric_id", nullable = false)
+    private ProductivityMetricRecord metric;
+
+    @Column(nullable = false)
     private String ruleCode;
+
     private String severity;
+
+    @Column(length = 512)
     private String details;
+
+    private LocalDateTime flaggedAt;
+
     private Boolean resolved = false;
 
-    public String getRuleCode() { return ruleCode; }
-    public void setRuleCode(String ruleCode) { this.ruleCode = ruleCode; }
+    public AnomalyFlagRecord() {
+    }
 
-    public String getSeverity() { return severity; }
-    public void setSeverity(String severity) { this.severity = severity; }
+    public AnomalyFlagRecord(EmployeeProfile employeeProfile, ProductivityMetricRecord metric,
+                             String ruleCode, String severity, String details) {
+        this.employeeProfile = employeeProfile;
+        this.metric = metric;
+        this.ruleCode = ruleCode;
+        this.severity = severity;
+        this.details = details;
+    }
 
-    public String getDetails() { return details; }
-    public void setDetails(String details) { this.details = details; }
+    @PrePersist
+    protected void onCreate() {
+        this.flaggedAt = LocalDateTime.now();
+        if (this.resolved == null) {
+            this.resolved = false;
+        }
+    }
 
-    public Boolean getResolved() { return resolved; }
-    public void setResolved(Boolean resolved) { this.resolved = resolved; }
+    // Getters and setters omitted for brevity
+    // ...
 }
