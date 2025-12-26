@@ -17,7 +17,6 @@ public class ProductivityMetricServiceImpl implements ProductivityMetricService 
         this.repo = repo;
     }
 
-    @Override
     public ProductivityMetricRecord recordMetric(ProductivityMetricRecord record) {
         double score = ProductivityCalculator.computeScore(
                 record.getHoursLogged(),
@@ -25,16 +24,19 @@ public class ProductivityMetricServiceImpl implements ProductivityMetricService 
                 record.getMeetingsAttended()
         );
         record.setProductivityScore(score);
-        return record;
+        return repo.save(record);
     }
 
-    @Override
     public Optional<ProductivityMetricRecord> getMetricById(Long id) {
-        return Optional.empty();
+        return repo.findById(id);
     }
 
-    @Override
     public List<ProductivityMetricRecord> getAllMetrics() {
-        return List.of();
+        return repo.findAll();
+    }
+
+    public ProductivityMetricRecord updateMetric(Long id, ProductivityMetricRecord record) {
+        record.setId(id);
+        return recordMetric(record);
     }
 }
