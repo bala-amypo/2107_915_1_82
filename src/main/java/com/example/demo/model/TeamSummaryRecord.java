@@ -18,7 +18,6 @@ public class TeamSummaryRecord {
 
     // getters & setters
 
-
     public TeamSummaryRecord() {}
 
     public Long getId() { return id; }

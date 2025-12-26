@@ -16,9 +16,11 @@ public class ProductivityMetricRecord {
     private Integer tasksCompleted;
     private Integer meetingsAttended;
     private Double productivityScore;
+
     private String rawDataJson;
 
-    // getters & setters (ALL REQUIRED)
+    // getters & setters
+
 
     public ProductivityMetricRecord() {}
 
