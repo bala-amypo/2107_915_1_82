@@ -4,8 +4,9 @@ public class ProductivityCalculator {
 
     public static double computeScore(double hours, int tasks, int meetings) {
 
-        if (Double.isNaN(hours) || hours < 0 || tasks < 0 || meetings < 0)
+        if (Double.isNaN(hours) || hours < 0 || tasks < 0 || meetings < 0) {
             return 0.0;
+        }
 
         double score = (hours * 10) + (tasks * 5) - (meetings * 2);
 

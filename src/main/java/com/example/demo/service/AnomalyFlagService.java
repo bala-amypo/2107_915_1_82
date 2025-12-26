@@ -10,6 +10,4 @@ public interface AnomalyFlagService {
     AnomalyFlagRecord resolveFlag(Long id);
 
     List<AnomalyFlagRecord> getAll();
-
-    List<AnomalyFlagRecord> getFlagsByMetric(Long metricId);
 }
