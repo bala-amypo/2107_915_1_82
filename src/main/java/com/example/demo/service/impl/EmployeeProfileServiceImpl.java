@@ -1,44 +1,26 @@
-package com.example.demo.service.impl;
-
-import com.example.demo.model.EmployeeProfile;
-import com.example.demo.repository.EmployeeProfileRepository;
-import com.example.demo.service.EmployeeProfileService;
-import org.springframework.beans.factory.annotation.Autowired;   // ✅ MISSING IMPORT
-import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Optional;
-
 @Service
-public class EmployeeProfileServiceImpl implements EmployeeProfileService {
+public class ProductivityMetricServiceImpl implements ProductivityMetricService {
 
     @Autowired
-    private EmployeeProfileRepository repo;
+    private ProductivityMetricRecordRepository repo;
 
     @Override
-    public EmployeeProfile createEmployee(EmployeeProfile e) {
-        return repo.save(e);
+    public ProductivityMetricRecord recordMetric(ProductivityMetricRecord m) {
+        return repo.save(m);
     }
 
     @Override
-    public EmployeeProfile getEmployeeById(Long id) {
-        return repo.findById(id).orElseThrow();
+    public Optional<ProductivityMetricRecord> getMetricById(Long id) {
+        return repo.findById(id);
     }
 
     @Override
-    public List<EmployeeProfile> getAllEmployees() {
-        return repo.findAll();
-    }
-
-    @Override
-    public Optional<EmployeeProfile> findByEmployeeId(String employeeId) {
+    public List<ProductivityMetricRecord> getMetricsByEmployee(Long employeeId) {
         return repo.findByEmployeeId(employeeId);
     }
 
     @Override
-    public EmployeeProfile updateEmployeeStatus(Long id, boolean active) {
-        EmployeeProfile e = getEmployeeById(id);
-        e.setActive(active);
-        return repo.save(e);
+    public List<ProductivityMetricRecord> getAllMetrics() {
+        return repo.findAll();
     }
 }
