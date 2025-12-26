@@ -1,40 +1,28 @@
-package com.example.demo.model;
+package com.example.demo.controller;
 
-import java.time.LocalDate;
+import com.example.demo.model.ProductivityMetricRecord;
+import com.example.demo.service.ProductivityMetricService;
 
-public class ProductivityMetricRecord {
+import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
-    private Long id;
-    private Long employeeId;
-    private LocalDate date;
-    private Double hoursLogged;
-    private Integer tasksCompleted;
-    private Integer meetingsAttended;
-    private Double productivityScore;
-    private String rawDataJson;
+@RestController
+@RequestMapping("/metrics")
+public class ProductivityMetricController {
 
-    // getters & setters
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    private final ProductivityMetricService service;
 
-    public Long getEmployeeId() { return employeeId; }
-    public void setEmployeeId(Long employeeId) { this.employeeId = employeeId; }
+    public ProductivityMetricController(ProductivityMetricService service) {
+        this.service = service;
+    }
 
-    public LocalDate getDate() { return date; }
-    public void setDate(LocalDate date) { this.date = date; }
+    @PostMapping
+    public ProductivityMetricRecord create(@RequestBody ProductivityMetricRecord record) {
+        return service.recordMetric(record);
+    }
 
-    public Double getHoursLogged() { return hoursLogged; }
-    public void setHoursLogged(Double hoursLogged) { this.hoursLogged = hoursLogged; }
-
-    public Integer getTasksCompleted() { return tasksCompleted; }
-    public void setTasksCompleted(Integer tasksCompleted) { this.tasksCompleted = tasksCompleted; }
-
-    public Integer getMeetingsAttended() { return meetingsAttended; }
-    public void setMeetingsAttended(Integer meetingsAttended) { this.meetingsAttended = meetingsAttended; }
-
-    public Double getProductivityScore() { return productivityScore; }
-    public void setProductivityScore(Double productivityScore) { this.productivityScore = productivityScore; }
-
-    public String getRawDataJson() { return rawDataJson; }
-    public void setRawDataJson(String rawDataJson) { this.rawDataJson = rawDataJson; }
+    @GetMapping
+    public List<ProductivityMetricRecord> getAll() {
+        return service.getAllMetrics();
+    }
 }
