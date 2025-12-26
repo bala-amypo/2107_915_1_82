@@ -16,3 +16,5 @@ public interface EmployeeProfileService {
 
     EmployeeProfile updateEmployeeStatus(Long id, boolean active);
 }
+
+
