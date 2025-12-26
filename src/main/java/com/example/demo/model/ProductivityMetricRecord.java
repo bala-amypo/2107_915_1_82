@@ -2,18 +2,14 @@ package com.example.demo.model;
 
 import jakarta.persistence.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Entity
-@Table(
-    name = "productivity_metric_records",
-    uniqueConstraints = @UniqueConstraint(columnNames = {"employeeId", "date"})
-)
 public class ProductivityMetricRecord {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private Long employeeId;
     private LocalDate date;
     private Double hoursLogged;
@@ -22,19 +18,8 @@ public class ProductivityMetricRecord {
     private Double productivityScore;
     private String rawDataJson;
 
-    @Column(columnDefinition = "TEXT")
-    private String rawDataJson;
-
-    private LocalDateTime submittedAt;
-
     public ProductivityMetricRecord() {}
 
-    @PrePersist
-    void onCreate() {
-        submittedAt = LocalDateTime.now();
-    }
-
-    // getters & setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
@@ -58,6 +43,4 @@ public class ProductivityMetricRecord {
 
     public String getRawDataJson() { return rawDataJson; }
     public void setRawDataJson(String rawDataJson) { this.rawDataJson = rawDataJson; }
-
-    public LocalDateTime getSubmittedAt() { return submittedAt; }
 }
