@@ -1,39 +1,40 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
-import java.time.LocalDate;
 
 @Entity
-@Table(name = "productivity_metric_records")
+@Table(name = "productivity_metrics")
 public class ProductivityMetricRecord {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long employeeId;
-    private LocalDate date;
-    private Double hoursLogged;
+    private Integer hoursLogged;
     private Integer tasksCompleted;
     private Integer meetingsAttended;
-    private Double productivityScore;
 
-    @Column(columnDefinition = "TEXT")
-    private String rawDataJson;
+    private Double productivityScore = 0.0;
 
-    public ProductivityMetricRecord() {}
+    @PrePersist
+    @PreUpdate
+    public void normalizeScore() {
+        if (productivityScore == null
+                || Double.isNaN(productivityScore)
+                || productivityScore < 0) {
+            productivityScore = 0.0;
+        }
+        if (productivityScore > 100) {
+            productivityScore = 100.0;
+        }
+    }
 
+    // getters & setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
-    public Long getEmployeeId() { return employeeId; }
-    public void setEmployeeId(Long employeeId) { this.employeeId = employeeId; }
-
-    public LocalDate getDate() { return date; }
-    public void setDate(LocalDate date) { this.date = date; }
-
-    public Double getHoursLogged() { return hoursLogged; }
-    public void setHoursLogged(Double hoursLogged) { this.hoursLogged = hoursLogged; }
+    public Integer getHoursLogged() { return hoursLogged; }
+    public void setHoursLogged(Integer hoursLogged) { this.hoursLogged = hoursLogged; }
 
     public Integer getTasksCompleted() { return tasksCompleted; }
     public void setTasksCompleted(Integer tasksCompleted) { this.tasksCompleted = tasksCompleted; }
@@ -42,8 +43,7 @@ public class ProductivityMetricRecord {
     public void setMeetingsAttended(Integer meetingsAttended) { this.meetingsAttended = meetingsAttended; }
 
     public Double getProductivityScore() { return productivityScore; }
-    public void setProductivityScore(Double productivityScore) { this.productivityScore = productivityScore; }
-
-    public String getRawDataJson() { return rawDataJson; }
-    public void setRawDataJson(String rawDataJson) { this.rawDataJson = rawDataJson; }
+    public void setProductivityScore(Double productivityScore) {
+        this.productivityScore = productivityScore;
+    }
 }
