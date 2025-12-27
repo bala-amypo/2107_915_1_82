@@ -14,7 +14,7 @@ public class ProductivityMetricServiceImpl implements ProductivityMetricService 
     @Override
     public ProductivityMetricRecord recordMetric(ProductivityMetricRecord metric) {
 
-        Integer score = 0; // default required by tests
+        double score = 0.0; // MUST be double
 
         if (metric != null &&
             metric.getHoursLogged() != null &&
@@ -24,20 +24,18 @@ public class ProductivityMetricServiceImpl implements ProductivityMetricService 
             metric.getTasksCompleted() >= 0 &&
             metric.getMeetingsAttended() >= 0) {
 
-            Integer calculated = ProductivityCalculator.computeScore(
+            double calculated = ProductivityCalculator.computeScore(
                     metric.getHoursLogged(),
                     metric.getTasksCompleted(),
                     metric.getMeetingsAttended()
             );
 
-            if (calculated != null) {
-                score = calculated;
-            }
+            score = calculated;
         }
 
-        // Clamp value (required by tests)
-        if (score < 0) score = 0;
-        if (score > 100) score = 100;
+        // Clamp rules required by tests
+        if (score < 0) score = 0.0;
+        if (score > 100) score = 100.0;
 
         metric.setProductivityScore(score);
         return metric;
