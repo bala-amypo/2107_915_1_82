@@ -11,20 +11,23 @@ public class ProductivityMetricRecord {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    // REQUIRED BY TESTS
+    private Long employeeId;
+
+    private LocalDate date;
+
     private Integer hoursLogged;
     private Integer tasksCompleted;
     private Integer meetingsAttended;
 
     private Double productivityScore;
 
-    private LocalDate recordDate;
+    @Column(columnDefinition = "TEXT")
+    private String rawDataJson;
 
-    public ProductivityMetricRecord() {
-        // default constructor required
-    }
+    public ProductivityMetricRecord() {}
 
-    // ================== GETTERS & SETTERS ==================
-
+    // ---------------- ID ----------------
     public Long getId() {
         return id;
     }
@@ -33,6 +36,25 @@ public class ProductivityMetricRecord {
         this.id = id;
     }
 
+    // ---------------- EMPLOYEE ----------------
+    public Long getEmployeeId() {
+        return employeeId;
+    }
+
+    public void setEmployeeId(Long employeeId) {
+        this.employeeId = employeeId;
+    }
+
+    // ---------------- DATE ----------------
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    // ---------------- METRICS ----------------
     public Integer getHoursLogged() {
         return hoursLogged;
     }
@@ -57,33 +79,21 @@ public class ProductivityMetricRecord {
         this.meetingsAttended = meetingsAttended;
     }
 
+    // ---------------- SCORE ----------------
     public Double getProductivityScore() {
         return productivityScore;
     }
 
-    /**
-     * 🔐 CRITICAL FIX FOR TEST CASES
-     * Ensures:
-     * - No negative score
-     * - No NaN
-     * - Always numeric
-     */
     public void setProductivityScore(Double productivityScore) {
-        if (productivityScore == null ||
-            productivityScore < 0 ||
-            Double.isNaN(productivityScore)) {
-
-            this.productivityScore = 0.0;
-        } else {
-            this.productivityScore = productivityScore;
-        }
+        this.productivityScore = productivityScore;
     }
 
-    public LocalDate getRecordDate() {
-        return recordDate;
+    // ---------------- RAW JSON ----------------
+    public String getRawDataJson() {
+        return rawDataJson;
     }
 
-    public void setRecordDate(LocalDate recordDate) {
-        this.recordDate = recordDate;
+    public void setRawDataJson(String rawDataJson) {
+        this.rawDataJson = rawDataJson;
     }
 }
