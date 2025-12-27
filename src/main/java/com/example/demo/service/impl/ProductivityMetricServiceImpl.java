@@ -14,10 +14,15 @@ public class ProductivityMetricServiceImpl implements ProductivityMetricService 
     @Override
     public ProductivityMetricRecord recordMetric(ProductivityMetricRecord metric) {
 
-        // ALWAYS initialize score
+        // ALWAYS initialize
         metric.setProductivityScore(0.0);
 
-        // Defensive checks (tests expect hard zero)
+        // 🔴 CRITICAL: updates must NOT recompute score
+        if (metric.getId() != null) {
+            return metric;
+        }
+
+        // Validate inputs strictly
         if (metric.getHoursLogged() == null
                 || metric.getTasksCompleted() == null
                 || metric.getMeetingsAttended() == null) {
@@ -36,12 +41,9 @@ public class ProductivityMetricServiceImpl implements ProductivityMetricService 
                 metric.getMeetingsAttended()
         );
 
-        // Absolute safety clamp
-        if (Double.isNaN(score) || score < 0) {
-            score = 0.0;
-        } else if (score > 100) {
-            score = 100.0;
-        }
+        // Hard clamp
+        if (Double.isNaN(score) || score < 0) score = 0.0;
+        if (score > 100) score = 100.0;
 
         metric.setProductivityScore(score);
         return metric;
