@@ -13,13 +13,39 @@ public class ProductivityMetricServiceImpl implements ProductivityMetricService 
 
     @Override
     public ProductivityMetricRecord recordMetric(ProductivityMetricRecord metric) {
-        metric.setProductivityScore(
-                ProductivityCalculator.computeScore(
-                        metric.getHoursLogged(),
-                        metric.getTasksCompleted(),
-                        metric.getMeetingsAttended()
-                )
-        );
+
+        if (metric == null) {
+            return null;
+        }
+
+        // ✅ Use Double (matches model)
+        Double hours = metric.getHoursLogged();
+        Double tasks = metric.getTasksCompleted();
+        Double meetings = metric.getMeetingsAttended();
+
+        double score = 0.0;
+
+        // ✅ Validation required by failing tests
+        if (hours != null && tasks != null && meetings != null &&
+            hours >= 0 && tasks >= 0 && meetings >= 0) {
+
+            score = ProductivityCalculator.computeScore(
+                    hours.intValue(),
+                    tasks.intValue(),
+                    meetings.intValue()
+            );
+
+            // ✅ Numeric safety
+            if (Double.isNaN(score) || Double.isInfinite(score)) {
+                score = 0.0;
+            }
+        }
+
+        // ✅ Clamp score
+        if (score < 0) score = 0.0;
+        if (score > 100) score = 100.0;
+
+        metric.setProductivityScore(score);
         return metric;
     }
 
