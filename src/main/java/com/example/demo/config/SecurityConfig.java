@@ -1,10 +1,11 @@
 package com.example.demo.config;
 
+import com.example.demo.security.JwtFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 public class SecurityConfig {
@@ -15,21 +16,15 @@ public class SecurityConfig {
         http
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
-
-                // ✅ Allow swagger resources
                 .requestMatchers(
-                        "/v3/api-docs/**",
+                        "/auth/**",
                         "/swagger-ui/**",
-                        "/swagger-ui.html"
-                ).authenticated()
-
-                // 🔐 Secure APIs
-                .requestMatchers("/api/**").authenticated()
-
-                // everything else allowed
-                .anyRequest().permitAll()
+                        "/swagger-ui.html",
+                        "/v3/api-docs/**"
+                ).permitAll()
+                .anyRequest().authenticated()
             )
-            .httpBasic(Customizer.withDefaults());
+            .addFilterBefore(new JwtFilter(), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
