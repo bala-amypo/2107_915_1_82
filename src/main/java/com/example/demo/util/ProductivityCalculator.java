@@ -1,18 +1,50 @@
 package com.example.demo.util;
 
+import com.example.demo.model.Metric;
+
 public class ProductivityCalculator {
 
-    public static double computeScore(double hours, int tasks, int meetings) {
+    private ProductivityCalculator() {
+        // utility class
+    }
 
-        if (Double.isNaN(hours) || hours < 0) hours = 0;
-        if (tasks < 0) tasks = 0;
-        if (meetings < 0) meetings = 0;
+    public static double calculateScore(Metric metric) {
 
-        double score = (hours * 10) + (tasks * 5) - (meetings * 2);
+        if (metric == null) {
+            return 0.0;
+        }
 
-        if (score < 0) score = 0;
-        if (score > 100) score = 100;
+        double hoursWorked = safe(metric.getHoursWorked());
+        double meetings = safe(metric.getMeetings());
+        double breaks = safe(metric.getBreaks());
 
+        // If no work done, score must be zero
+        if (hoursWorked <= 0) {
+            return 0.0;
+        }
+
+        double score = (hoursWorked * 10)
+                - (meetings * 2)
+                - (breaks * 1.5);
+
+        // Clamp negative values
+        if (score < 0) {
+            score = 0;
+        }
+
+        // Cap max score
+        if (score > 100) {
+            score = 100;
+        }
+
+        // Always return numeric rounded value
         return Math.round(score * 100.0) / 100.0;
+    }
+
+    private static double safe(Double value) {
+        if (value == null || value.isNaN() || value.isInfinite()) {
+            return 0.0;
+        }
+        return Math.max(0, value);
     }
 }
