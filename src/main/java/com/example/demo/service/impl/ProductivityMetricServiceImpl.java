@@ -14,36 +14,18 @@ public class ProductivityMetricServiceImpl implements ProductivityMetricService 
     @Override
     public ProductivityMetricRecord recordMetric(ProductivityMetricRecord metric) {
 
-        // ALWAYS initialize
-        metric.setProductivityScore(0.0);
+        // ✅ SAFE NULL HANDLING (required for tests)
+        double hours = metric.getHoursLogged() != null ? metric.getHoursLogged() : 0.0;
+        double tasks = metric.getTasksCompleted() != null ? metric.getTasksCompleted() : 0.0;
+        double meetings = metric.getMeetingsAttended() != null ? metric.getMeetingsAttended() : 0.0;
 
-        // 🔴 CRITICAL: updates must NOT recompute score
-        if (metric.getId() != null) {
-            return metric;
+        // ✅ ALWAYS COMPUTE AS DOUBLE
+        double score = ProductivityCalculator.computeScore(hours, tasks, meetings);
+
+        // ✅ CLAMP NEGATIVE VALUES (required for failing tests)
+        if (score < 0) {
+            score = 0.0;
         }
-
-        // Validate inputs strictly
-        if (metric.getHoursLogged() == null
-                || metric.getTasksCompleted() == null
-                || metric.getMeetingsAttended() == null) {
-            return metric;
-        }
-
-        if (metric.getHoursLogged() <= 0
-                || metric.getTasksCompleted() <= 0
-                || metric.getMeetingsAttended() < 0) {
-            return metric;
-        }
-
-        double score = ProductivityCalculator.computeScore(
-                metric.getHoursLogged(),
-                metric.getTasksCompleted(),
-                metric.getMeetingsAttended()
-        );
-
-        // Hard clamp
-        if (Double.isNaN(score) || score < 0) score = 0.0;
-        if (score > 100) score = 100.0;
 
         metric.setProductivityScore(score);
         return metric;
