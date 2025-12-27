@@ -22,29 +22,31 @@ public class ProductivityMetricServiceImpl implements ProductivityMetricService 
         Integer tasks = metric.getTasksCompleted();
         Integer meetings = metric.getMeetingsAttended();
 
-        double score = 0.0;
+        int finalScore = 0;
 
-        // ✅ Null & negative safety (required by failing tests)
+        // ✅ null + negative protection (TEST REQUIRED)
         if (hours != null && tasks != null && meetings != null &&
             hours >= 0 && tasks >= 0 && meetings >= 0) {
 
-            score = ProductivityCalculator.computeScore(
-                    hours.doubleValue(),
-                    tasks.doubleValue(),
-                    meetings.doubleValue()
+            Double rawScore = ProductivityCalculator.computeScore(
+                    hours,
+                    tasks,
+                    meetings
             );
 
-            if (Double.isNaN(score) || Double.isInfinite(score)) {
-                score = 0.0;
+            // Safety checks
+            if (rawScore != null && !rawScore.isNaN() && !rawScore.isInfinite()) {
+
+                // Clamp before converting
+                if (rawScore < 0) rawScore = 0.0;
+                if (rawScore > 100) rawScore = 100.0;
+
+                finalScore = rawScore.intValue(); // ✅ REQUIRED
             }
         }
 
-        // ✅ Clamp (testScoreNeverExceeds100)
-        if (score < 0) score = 0;
-        if (score > 100) score = 100;
-
-        // ✅ VERY IMPORTANT: convert to int (THIS FIXES YOUR ERROR)
-        metric.setProductivityScore((int) Math.round(score));
+        // ✅ setter expects int
+        metric.setProductivityScore(finalScore);
 
         return metric;
     }
