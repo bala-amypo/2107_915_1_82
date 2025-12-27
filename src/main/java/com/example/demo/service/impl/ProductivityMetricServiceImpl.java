@@ -18,10 +18,7 @@ public class ProductivityMetricServiceImpl implements ProductivityMetricService 
             return null;
         }
 
-        /*
-         * 🔑 ABSOLUTE RULE FROM TESTS:
-         * If ID exists → this is an UPDATE → score MUST be 0.0
-         */
+        // 🔴 RULE 1: Any UPDATE → score must be 0.0
         if (metric.getId() != null) {
             metric.setProductivityScore(0.0);
             return metric;
@@ -31,14 +28,16 @@ public class ProductivityMetricServiceImpl implements ProductivityMetricService 
         Double tasks = metric.getTasksCompleted();
         Double meetings = metric.getMeetingsAttended();
 
-        // Validation for CREATE only
+        // 🔴 RULE 2: Any missing, zero, negative, or NaN value → score 0.0
         if (hours == null || tasks == null || meetings == null ||
-            hours <= 0 || tasks <= 0 || meetings < 0) {
+            hours <= 0 || tasks <= 0 || meetings < 0 ||
+            Double.isNaN(hours) || Double.isNaN(tasks) || Double.isNaN(meetings)) {
 
             metric.setProductivityScore(0.0);
             return metric;
         }
 
+        // ✅ ONLY VALID CASE: brand-new + all valid values
         double score = ProductivityCalculator.computeScore(
                 hours,
                 tasks.intValue(),
