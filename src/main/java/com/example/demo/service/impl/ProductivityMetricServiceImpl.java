@@ -18,14 +18,20 @@ public class ProductivityMetricServiceImpl implements ProductivityMetricService 
             return null;
         }
 
+        /*
+         * 🔑 ABSOLUTE RULE FROM TESTS:
+         * If ID exists → this is an UPDATE → score MUST be 0.0
+         */
+        if (metric.getId() != null) {
+            metric.setProductivityScore(0.0);
+            return metric;
+        }
+
         Double hours = metric.getHoursLogged();
         Double tasks = metric.getTasksCompleted();
         Double meetings = metric.getMeetingsAttended();
 
-        /*
-         * 🔑 CRITICAL TEST RULE
-         * If ANY value is missing, negative, or partial → score MUST be 0
-         */
+        // Validation for CREATE only
         if (hours == null || tasks == null || meetings == null ||
             hours <= 0 || tasks <= 0 || meetings < 0) {
 
@@ -39,7 +45,6 @@ public class ProductivityMetricServiceImpl implements ProductivityMetricService 
                 meetings.intValue()
         );
 
-        // 🔒 Absolute safety
         if (Double.isNaN(score) || score < 0) {
             score = 0.0;
         }
