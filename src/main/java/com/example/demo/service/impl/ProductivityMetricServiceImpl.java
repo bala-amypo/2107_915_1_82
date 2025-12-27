@@ -18,30 +18,34 @@ public class ProductivityMetricServiceImpl implements ProductivityMetricService 
             return null;
         }
 
-        // ✅ Use Double (matches model)
-        Double hours = metric.getHoursLogged();
-        Double tasks = metric.getTasksCompleted();
-        Double meetings = metric.getMeetingsAttended();
+        Integer hoursInt = metric.getHoursLogged();
+        Integer tasksInt = metric.getTasksCompleted();
+        Integer meetingsInt = metric.getMeetingsAttended();
 
         double score = 0.0;
 
-        // ✅ Validation required by failing tests
-        if (hours != null && tasks != null && meetings != null &&
-            hours >= 0 && tasks >= 0 && meetings >= 0) {
+        // ✅ null & negative protection (required by tests)
+        if (hoursInt != null && tasksInt != null && meetingsInt != null &&
+            hoursInt >= 0 && tasksInt >= 0 && meetingsInt >= 0) {
+
+            // ✅ EXPLICIT Integer → Double conversion (THIS FIXES YOUR ERROR)
+            Double hours = hoursInt.doubleValue();
+            Double tasks = tasksInt.doubleValue();
+            Double meetings = meetingsInt.doubleValue();
 
             score = ProductivityCalculator.computeScore(
-                    hours.intValue(),
-                    tasks.intValue(),
-                    meetings.intValue()
+                    hours,
+                    tasks,
+                    meetings
             );
 
-            // ✅ Numeric safety
+            // ✅ numeric safety
             if (Double.isNaN(score) || Double.isInfinite(score)) {
                 score = 0.0;
             }
         }
 
-        // ✅ Clamp score
+        // ✅ clamp score (required by tests)
         if (score < 0) score = 0.0;
         if (score > 100) score = 100.0;
 
