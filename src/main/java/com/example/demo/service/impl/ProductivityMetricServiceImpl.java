@@ -13,42 +13,13 @@ public class ProductivityMetricServiceImpl implements ProductivityMetricService 
 
     @Override
     public ProductivityMetricRecord recordMetric(ProductivityMetricRecord metric) {
-
-        if (metric == null) {
-            return null;
-        }
-
-        // 🔴 RULE 1: Any UPDATE → score must be 0.0
-        if (metric.getId() != null) {
-            metric.setProductivityScore(0.0);
-            return metric;
-        }
-
-        Double hours = metric.getHoursLogged();
-        Double tasks = metric.getTasksCompleted();
-        Double meetings = metric.getMeetingsAttended();
-
-        // 🔴 RULE 2: Any missing, zero, negative, or NaN value → score 0.0
-        if (hours == null || tasks == null || meetings == null ||
-            hours <= 0 || tasks <= 0 || meetings < 0 ||
-            Double.isNaN(hours) || Double.isNaN(tasks) || Double.isNaN(meetings)) {
-
-            metric.setProductivityScore(0.0);
-            return metric;
-        }
-
-        // ✅ ONLY VALID CASE: brand-new + all valid values
-        double score = ProductivityCalculator.computeScore(
-                hours,
-                tasks.intValue(),
-                meetings.intValue()
+        metric.setProductivityScore(
+                ProductivityCalculator.computeScore(
+                        metric.getHoursLogged(),
+                        metric.getTasksCompleted(),
+                        metric.getMeetingsAttended()
+                )
         );
-
-        if (Double.isNaN(score) || score < 0) {
-            score = 0.0;
-        }
-
-        metric.setProductivityScore(score);
         return metric;
     }
 
