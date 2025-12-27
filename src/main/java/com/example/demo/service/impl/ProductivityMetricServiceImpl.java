@@ -14,39 +14,32 @@ public class ProductivityMetricServiceImpl implements ProductivityMetricService 
     @Override
     public ProductivityMetricRecord recordMetric(ProductivityMetricRecord metric) {
 
-        if (metric == null) {
-            return null;
-        }
+        Integer score = 0; // default required by tests
 
-        Integer hours = metric.getHoursLogged();
-        Integer tasks = metric.getTasksCompleted();
-        Integer meetings = metric.getMeetingsAttended();
+        if (metric != null &&
+            metric.getHoursLogged() != null &&
+            metric.getTasksCompleted() != null &&
+            metric.getMeetingsAttended() != null &&
+            metric.getHoursLogged() >= 0 &&
+            metric.getTasksCompleted() >= 0 &&
+            metric.getMeetingsAttended() >= 0) {
 
-        Double score = 0.0;   // ✅ MUST be Double
-
-        // ✅ Null + negative protection (required by tests)
-        if (hours != null && tasks != null && meetings != null &&
-            hours >= 0 && tasks >= 0 && meetings >= 0) {
-
-            Double rawScore = ProductivityCalculator.computeScore(
-                    hours,
-                    tasks,
-                    meetings
+            Integer calculated = ProductivityCalculator.computeScore(
+                    metric.getHoursLogged(),
+                    metric.getTasksCompleted(),
+                    metric.getMeetingsAttended()
             );
 
-            if (rawScore != null && !rawScore.isNaN() && !rawScore.isInfinite()) {
-
-                // Clamp score
-                if (rawScore < 0) rawScore = 0.0;
-                if (rawScore > 100) rawScore = 100.0;
-
-                score = rawScore;
+            if (calculated != null) {
+                score = calculated;
             }
         }
 
-        // ✅ Setter expects Double — NOT int
-        metric.setProductivityScore(score);
+        // Clamp value (required by tests)
+        if (score < 0) score = 0;
+        if (score > 100) score = 100;
 
+        metric.setProductivityScore(score);
         return metric;
     }
 
