@@ -14,15 +14,15 @@ public class ProductivityMetricServiceImpl implements ProductivityMetricService 
     @Override
     public ProductivityMetricRecord recordMetric(ProductivityMetricRecord metric) {
 
-        // ✅ SAFE NULL HANDLING (required for tests)
-        double hours = metric.getHoursLogged() != null ? metric.getHoursLogged() : 0.0;
-        double tasks = metric.getTasksCompleted() != null ? metric.getTasksCompleted() : 0.0;
-        double meetings = metric.getMeetingsAttended() != null ? metric.getMeetingsAttended() : 0.0;
+        // ✅ MODEL USES INTEGER — so respect it
+        int hours = metric.getHoursLogged() != null ? metric.getHoursLogged() : 0;
+        int tasks = metric.getTasksCompleted() != null ? metric.getTasksCompleted() : 0;
+        int meetings = metric.getMeetingsAttended() != null ? metric.getMeetingsAttended() : 0;
 
-        // ✅ ALWAYS COMPUTE AS DOUBLE
+        // ✅ Calculator returns double
         double score = ProductivityCalculator.computeScore(hours, tasks, meetings);
 
-        // ✅ CLAMP NEGATIVE VALUES (required for failing tests)
+        // ✅ REQUIRED BY FAILING TESTS
         if (score < 0) {
             score = 0.0;
         }
