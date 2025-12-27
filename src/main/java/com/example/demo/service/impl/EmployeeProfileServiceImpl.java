@@ -5,6 +5,7 @@ import com.example.demo.repository.EmployeeProfileRepository;
 import com.example.demo.service.EmployeeProfileService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -18,7 +19,6 @@ public class EmployeeProfileServiceImpl implements EmployeeProfileService {
 
     @Override
     public EmployeeProfile createEmployee(EmployeeProfile e) {
-        // ✅ REAL DB SAVE
         return repository.save(e);
     }
 
@@ -29,14 +29,29 @@ public class EmployeeProfileServiceImpl implements EmployeeProfileService {
     }
 
     @Override
+    public List<EmployeeProfile> getAllEmployees() {
+        return repository.findAll();
+    }
+
+    @Override
     public Optional<EmployeeProfile> findByEmployeeId(String employeeId) {
         return repository.findByEmployeeId(employeeId);
     }
 
     @Override
-    public EmployeeProfile updateEmployeeStatus(Long id, boolean active) {
-        EmployeeProfile e = getEmployeeById(id);
-        e.setActive(active);
+    public EmployeeProfile updateEmployee(EmployeeProfile e) {
         return repository.save(e);
+    }
+
+    @Override
+    public EmployeeProfile updateEmployeeStatus(Long id, boolean active) {
+        EmployeeProfile emp = getEmployeeById(id);
+        emp.setActive(active);
+        return repository.save(emp);
+    }
+
+    @Override
+    public void deleteEmployee(Long id) {
+        repository.deleteById(id);
     }
 }
