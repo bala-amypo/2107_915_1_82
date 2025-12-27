@@ -11,15 +11,17 @@ public class ProductivityMetricRecord {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // REQUIRED BY TESTS
+    // Used in many tests
     private Long employeeId;
 
     private LocalDate date;
 
-    private Integer hoursLogged;
-    private Integer tasksCompleted;
-    private Integer meetingsAttended;
+    // MUST be Double (tests pass double literals)
+    private Double hoursLogged;
+    private Double tasksCompleted;
+    private Double meetingsAttended;
 
+    // Score must always exist & be numeric
     private Double productivityScore;
 
     @Column(columnDefinition = "TEXT")
@@ -55,27 +57,27 @@ public class ProductivityMetricRecord {
     }
 
     // ---------------- METRICS ----------------
-    public Integer getHoursLogged() {
+    public Double getHoursLogged() {
         return hoursLogged;
     }
 
-    public void setHoursLogged(Integer hoursLogged) {
+    public void setHoursLogged(Double hoursLogged) {
         this.hoursLogged = hoursLogged;
     }
 
-    public Integer getTasksCompleted() {
+    public Double getTasksCompleted() {
         return tasksCompleted;
     }
 
-    public void setTasksCompleted(Integer tasksCompleted) {
+    public void setTasksCompleted(Double tasksCompleted) {
         this.tasksCompleted = tasksCompleted;
     }
 
-    public Integer getMeetingsAttended() {
+    public Double getMeetingsAttended() {
         return meetingsAttended;
     }
 
-    public void setMeetingsAttended(Integer meetingsAttended) {
+    public void setMeetingsAttended(Double meetingsAttended) {
         this.meetingsAttended = meetingsAttended;
     }
 
