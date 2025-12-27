@@ -18,38 +18,34 @@ public class ProductivityMetricServiceImpl implements ProductivityMetricService 
             return null;
         }
 
-        Integer hoursInt = metric.getHoursLogged();
-        Integer tasksInt = metric.getTasksCompleted();
-        Integer meetingsInt = metric.getMeetingsAttended();
+        Integer hours = metric.getHoursLogged();
+        Integer tasks = metric.getTasksCompleted();
+        Integer meetings = metric.getMeetingsAttended();
 
         double score = 0.0;
 
-        // ✅ null & negative protection (required by tests)
-        if (hoursInt != null && tasksInt != null && meetingsInt != null &&
-            hoursInt >= 0 && tasksInt >= 0 && meetingsInt >= 0) {
-
-            // ✅ EXPLICIT Integer → Double conversion (THIS FIXES YOUR ERROR)
-            Double hours = hoursInt.doubleValue();
-            Double tasks = tasksInt.doubleValue();
-            Double meetings = meetingsInt.doubleValue();
+        // ✅ Null & negative safety (required by failing tests)
+        if (hours != null && tasks != null && meetings != null &&
+            hours >= 0 && tasks >= 0 && meetings >= 0) {
 
             score = ProductivityCalculator.computeScore(
-                    hours,
-                    tasks,
-                    meetings
+                    hours.doubleValue(),
+                    tasks.doubleValue(),
+                    meetings.doubleValue()
             );
 
-            // ✅ numeric safety
             if (Double.isNaN(score) || Double.isInfinite(score)) {
                 score = 0.0;
             }
         }
 
-        // ✅ clamp score (required by tests)
-        if (score < 0) score = 0.0;
-        if (score > 100) score = 100.0;
+        // ✅ Clamp (testScoreNeverExceeds100)
+        if (score < 0) score = 0;
+        if (score > 100) score = 100;
 
-        metric.setProductivityScore(score);
+        // ✅ VERY IMPORTANT: convert to int (THIS FIXES YOUR ERROR)
+        metric.setProductivityScore((int) Math.round(score));
+
         return metric;
     }
 
