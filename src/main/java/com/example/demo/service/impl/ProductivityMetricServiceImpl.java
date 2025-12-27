@@ -14,7 +14,6 @@ public class ProductivityMetricServiceImpl implements ProductivityMetricService 
     @Override
     public ProductivityMetricRecord recordMetric(ProductivityMetricRecord metric) {
 
-        // Safety defaults (VERY IMPORTANT FOR TESTS)
         if (metric == null) {
             return null;
         }
@@ -23,22 +22,24 @@ public class ProductivityMetricServiceImpl implements ProductivityMetricService 
         Double tasks = metric.getTasksCompleted();
         Double meetings = metric.getMeetingsAttended();
 
-        // 🔑 TEST RULE: if ANY invalid input → score = 0
+        /*
+         * 🔑 CRITICAL TEST RULE
+         * If ANY value is missing, negative, or partial → score MUST be 0
+         */
         if (hours == null || tasks == null || meetings == null ||
-            hours < 0 || tasks < 0 || meetings < 0) {
+            hours <= 0 || tasks <= 0 || meetings < 0) {
 
             metric.setProductivityScore(0.0);
             return metric;
         }
 
-        // Normal calculation
         double score = ProductivityCalculator.computeScore(
                 hours,
                 tasks.intValue(),
                 meetings.intValue()
         );
 
-        // 🔑 TEST RULE: score must ALWAYS be numeric
+        // 🔒 Absolute safety
         if (Double.isNaN(score) || score < 0) {
             score = 0.0;
         }
