@@ -54,7 +54,6 @@ public class EmployeeProfileServiceImpl implements EmployeeProfileService {
 
     @Override
     public Optional<EmployeeProfile> findByEmployeeId(String employeeId) {
-        // 🔥 CRITICAL BRIDGE FIX
         return Optional.ofNullable(
                 repository.findByEmployeeId(employeeId)
         );

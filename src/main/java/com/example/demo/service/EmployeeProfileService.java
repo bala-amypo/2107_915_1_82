@@ -19,6 +19,5 @@ public interface EmployeeProfileService {
 
     void deleteEmployee(Long id);
 
-    // 🔴 Optional REQUIRED for isPresent() / isEmpty() tests
     Optional<EmployeeProfile> findByEmployeeId(String employeeId);
 }
