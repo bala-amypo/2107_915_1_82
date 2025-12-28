@@ -21,25 +21,18 @@ public class ProductivityMetricRecord {
 
     private LocalDate date;
 
-    private Double hoursWorked;
-    private Integer tasksCompleted;
-    private Integer meetingsAttended;
+    // ===== CORE METRICS =====
+    private Double hoursLogged = 0.0;
+    private Integer tasksCompleted = 0;
+    private Integer meetingsAttended = 0;
 
-    private Double score;
+    // ===== SCORE =====
+    private Double productivityScore = 0.0;
 
     @Lob
     private String rawDataJson;
 
-    /* ===== DEFAULTS ===== */
-
-    public ProductivityMetricRecord() {
-        this.hoursWorked = 0.0;
-        this.tasksCompleted = 0;
-        this.meetingsAttended = 0;
-        this.score = 0.0;
-    }
-
-    /* ===== GETTERS / SETTERS ===== */
+    /* ================= GETTERS / SETTERS ================= */
 
     public Long getId() { return id; }
 
@@ -49,17 +42,27 @@ public class ProductivityMetricRecord {
     public LocalDate getDate() { return date; }
     public void setDate(LocalDate date) { this.date = date; }
 
-    public Double getHoursWorked() { return hoursWorked; }
-    public void setHoursWorked(Double hoursWorked) { this.hoursWorked = hoursWorked; }
+    // 🔥 REQUIRED BY TESTS
+    public Double getHoursLogged() { return hoursLogged; }
+    public void setHoursLogged(double hoursLogged) {
+        this.hoursLogged = Math.max(0, hoursLogged);
+    }
 
     public Integer getTasksCompleted() { return tasksCompleted; }
-    public void setTasksCompleted(Integer tasksCompleted) { this.tasksCompleted = tasksCompleted; }
+    public void setTasksCompleted(Integer tasksCompleted) {
+        this.tasksCompleted = Math.max(0, tasksCompleted);
+    }
 
     public Integer getMeetingsAttended() { return meetingsAttended; }
-    public void setMeetingsAttended(Integer meetingsAttended) { this.meetingsAttended = meetingsAttended; }
+    public void setMeetingsAttended(Integer meetingsAttended) {
+        this.meetingsAttended = Math.max(0, meetingsAttended);
+    }
 
-    public Double getScore() { return score; }
-    public void setScore(Double score) { this.score = score; }
+    // 🔥 REQUIRED BY TESTS
+    public Double getProductivityScore() { return productivityScore; }
+    public void setProductivityScore(double score) {
+        this.productivityScore = Math.max(0, score);
+    }
 
     public String getRawDataJson() { return rawDataJson; }
     public void setRawDataJson(String rawDataJson) { this.rawDataJson = rawDataJson; }
