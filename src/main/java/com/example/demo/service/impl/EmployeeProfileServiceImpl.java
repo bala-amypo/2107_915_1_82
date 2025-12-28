@@ -34,8 +34,7 @@ public class EmployeeProfileServiceImpl implements EmployeeProfileService {
 
     @Override
     public EmployeeProfile updateEmployee(EmployeeProfile employee) {
-        return Optional.of(repository.save(employee));
-
+        return repository.save(employee);
     }
 
     @Override
@@ -56,6 +55,7 @@ public class EmployeeProfileServiceImpl implements EmployeeProfileService {
 
     @Override
     public Optional<EmployeeProfile> findByEmployeeId(String employeeId) {
-        return repository.findByEmployeeId(employeeId);
+        return Optional.of(repository.save(employee));
+
     }
 }
