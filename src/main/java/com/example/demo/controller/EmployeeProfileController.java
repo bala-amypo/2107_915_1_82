@@ -28,20 +28,17 @@ public class EmployeeProfileController {
 
     @GetMapping("/{id}")
     public EmployeeProfile getById(@PathVariable Long id) {
-        return service.getEmployeeById(id)
-                .orElseThrow(() -> new RuntimeException("Employee not found"));
+        return service.getEmployeeById(id);
     }
 
     @GetMapping("/by-employee-id/{employeeId}")
     public EmployeeProfile getByEmployeeId(@PathVariable String employeeId) {
-        return service.findByEmployeeId(employeeId)
-                .orElseThrow(() -> new RuntimeException("Employee not found"));
+        return service.findByEmployeeId(employeeId);
     }
 
     @PutMapping
     public EmployeeProfile update(@RequestBody EmployeeProfile employee) {
-        return service.updateEmployee(employee)
-                .orElseThrow(() -> new RuntimeException("Employee not found"));
+        return service.updateEmployee(employee);
     }
 
     @PutMapping("/{id}/status")
@@ -49,8 +46,7 @@ public class EmployeeProfileController {
             @PathVariable Long id,
             @RequestParam boolean active) {
 
-        return service.updateEmployeeStatus(id, active)
-                .orElseThrow(() -> new RuntimeException("Employee not found"));
+        return service.updateEmployeeStatus(id, active);
     }
 
     @DeleteMapping("/{id}")
