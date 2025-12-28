@@ -34,7 +34,8 @@ public class EmployeeProfileServiceImpl implements EmployeeProfileService {
 
     @Override
     public EmployeeProfile updateEmployee(EmployeeProfile employee) {
-        return repository.save(employee);
+        return Optional.of(repository.save(employee));
+
     }
 
     @Override
