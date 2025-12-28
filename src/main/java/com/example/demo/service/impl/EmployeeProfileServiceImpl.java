@@ -28,8 +28,8 @@ public class EmployeeProfileServiceImpl implements EmployeeProfileService {
     }
 
     @Override
-    public Optional<EmployeeProfile> getEmployeeById(Long id) {
-        return repository.findById(id);
+    public EmployeeProfile getEmployeeById(Long id) {
+        return repository.findById(id).orElse(null); // 🔥 FIX
     }
 
     @Override
