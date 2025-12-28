@@ -53,8 +53,7 @@ public class EmployeeProfileServiceImpl implements EmployeeProfileService {
     }
 
     @Override
-        public Optional<EmployeeProfile> findByEmployeeId(String employeeId) {
-    return repository.findByEmployeeId(employeeId);
+    public Optional<EmployeeProfile> findByEmployeeId(String employeeId) {
+        return repository.findByEmployeeId(employeeId);
     }
-
 }

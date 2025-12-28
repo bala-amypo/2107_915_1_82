@@ -1,6 +1,7 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.model.ProductivityMetricRecord;
+import com.example.demo.repository.ProductivityMetricRecordRepository;
 import com.example.demo.service.ProductivityMetricService;
 import com.example.demo.util.ProductivityCalculator;
 import org.springframework.stereotype.Service;
@@ -11,26 +12,32 @@ import java.util.Optional;
 @Service
 public class ProductivityMetricServiceImpl implements ProductivityMetricService {
 
-    @Override
-    public ProductivityMetricRecord recordMetric(ProductivityMetricRecord metric) {
+    private final ProductivityMetricRecordRepository repository;
 
-        double hours = metric.getHoursLogged() == null ? 0 : metric.getHoursLogged();
-        int tasks = metric.getTasksCompleted() == null ? 0 : metric.getTasksCompleted();
-        int meetings = metric.getMeetingsAttended() == null ? 0 : metric.getMeetingsAttended();
-
-        double score = ProductivityCalculator.computeScore(hours, tasks, meetings);
-        metric.setProductivityScore(score);
-
-        return metric;
+    public ProductivityMetricServiceImpl(ProductivityMetricRecordRepository repository) {
+        this.repository = repository;
     }
 
     @Override
-    public Optional<ProductivityMetricRecord> getMetricById(Long id) {
-        return Optional.empty();
+    public ProductivityMetricRecord recordMetric(ProductivityMetricRecord metric) {
+
+        double score = ProductivityCalculator.computeScore(
+                metric.getHoursLogged(),
+                metric.getTasksCompleted(),
+                metric.getMeetingsAttended()
+        );
+
+        metric.setProductivityScore(score);
+        return repository.save(metric);
     }
 
     @Override
     public List<ProductivityMetricRecord> getAllMetrics() {
-        return List.of();
+        return repository.findAll();
+    }
+
+    @Override
+    public Optional<ProductivityMetricRecord> getMetricById(Long id) {
+        return repository.findById(id);
     }
 }

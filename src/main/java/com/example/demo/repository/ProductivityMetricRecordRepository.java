@@ -8,7 +8,5 @@ import java.util.List;
 public interface ProductivityMetricRecordRepository
         extends JpaRepository<ProductivityMetricRecord, Long> {
 
-    ProductivityMetricRecord findByEmployeeId(Long employeeId);
-
-    List<ProductivityMetricRecord> findAllByEmployeeId(Long employeeId);
+    List<ProductivityMetricRecord> findByEmployeeId(Long employeeId);
 }
