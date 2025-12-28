@@ -5,7 +5,6 @@ import com.example.demo.service.EmployeeProfileService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/employees")
@@ -28,12 +27,12 @@ public class EmployeeProfileController {
     }
 
     @GetMapping("/{id}")
-    public Optional<EmployeeProfile> getById(@PathVariable Long id) {
+    public EmployeeProfile getById(@PathVariable Long id) {
         return service.getEmployeeById(id);
     }
 
     @GetMapping("/by-employee-id/{employeeId}")
-    public Optional<EmployeeProfile> getByEmployeeId(@PathVariable String employeeId) {
+    public EmployeeProfile getByEmployeeId(@PathVariable String employeeId) {
         return service.findByEmployeeId(employeeId);
     }
 
@@ -43,10 +42,9 @@ public class EmployeeProfileController {
     }
 
     @PutMapping("/{id}/status")
-    public Optional<EmployeeProfile> updateStatus(
+    public EmployeeProfile updateStatus(
             @PathVariable Long id,
             @RequestParam boolean active) {
-
         return service.updateEmployeeStatus(id, active);
     }
 
