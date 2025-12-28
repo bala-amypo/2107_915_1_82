@@ -39,13 +39,12 @@ public class EmployeeProfileServiceImpl implements EmployeeProfileService {
 
     @Override
     public EmployeeProfile updateEmployeeStatus(Long id, boolean active) {
-        Optional<EmployeeProfile> opt = repository.findById(id);
-        if (opt.isPresent()) {
-            EmployeeProfile emp = opt.get();
-            emp.setActive(active);
-            return repository.save(emp);
-        }
-        return null;
+        return repository.findById(id)
+                .map(emp -> {
+                    emp.setActive(active);
+                    return repository.save(emp);
+                })
+                .orElse(null);
     }
 
     @Override
@@ -54,8 +53,8 @@ public class EmployeeProfileServiceImpl implements EmployeeProfileService {
     }
 
     @Override
-    public Optional<EmployeeProfile> findByEmployeeId(String employeeId) {
-        return Optional.of(repository.save(employee));
+public Optional<EmployeeProfile> findByEmployeeId(String employeeId) {
+    return repository.findByEmployeeId(employeeId);
+}
 
-    }
 }
