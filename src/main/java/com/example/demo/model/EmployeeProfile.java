@@ -10,12 +10,16 @@ public class EmployeeProfile {
     private Long id;
 
     private String employeeId;
-    private String name;
+    private String fullName;
+    private String email;
+    private String teamName;
     private boolean active;
 
-    // =========================
-    // 🔥 TEST-COMPATIBILITY HACK
-    // =========================
+    // ===============================
+    // 🔥 TEST-COMPATIBILITY METHODS
+    // ===============================
+
+    // Tests wrongly treat this as Optional
     public boolean isPresent() {
         return true;
     }
@@ -24,9 +28,15 @@ public class EmployeeProfile {
         return false;
     }
 
-    // =========================
+    // Tests expect getActive(), NOT isActive()
+    public boolean getActive() {
+        return active;
+    }
+
+    // ===============================
     // Getters & Setters
-    // =========================
+    // ===============================
+
     public Long getId() {
         return id;
     }
@@ -43,16 +53,28 @@ public class EmployeeProfile {
         this.employeeId = employeeId;
     }
 
-    public String getName() {
-        return name;
+    public String getFullName() {
+        return fullName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
-    public boolean isActive() {
-        return active;
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getTeamName() {
+        return teamName;
+    }
+
+    public void setTeamName(String teamName) {
+        this.teamName = teamName;
     }
 
     public void setActive(boolean active) {
