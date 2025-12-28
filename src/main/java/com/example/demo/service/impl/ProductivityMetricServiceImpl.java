@@ -14,45 +14,23 @@ public class ProductivityMetricServiceImpl implements ProductivityMetricService 
     @Override
     public ProductivityMetricRecord recordMetric(ProductivityMetricRecord metric) {
 
-        // Always initialize score
-        metric.setProductivityScore(0.0);
+        double hours = metric.getHoursWorked() == null ? 0.0 : metric.getHoursWorked();
+        int tasks = metric.getTasksCompleted() == null ? 0 : metric.getTasksCompleted();
+        int meetings = metric.getMeetingsAttended() == null ? 0 : metric.getMeetingsAttended();
 
-        // Null check
-        if (metric.getHoursLogged() == null
-                || metric.getTasksCompleted() == null
-                || metric.getMeetingsAttended() == null) {
-            return metric;
-        }
+        double score = ProductivityCalculator.computeScore(hours, tasks, meetings);
 
-        // Negative values → force 0.0
-        if (metric.getHoursLogged() < 0
-                || metric.getTasksCompleted() < 0
-                || metric.getMeetingsAttended() < 0) {
-            return metric;
-        }
-
-        // Compute score
-        double score = ProductivityCalculator.computeScore(
-                metric.getHoursLogged(),
-                metric.getTasksCompleted(),
-                metric.getMeetingsAttended()
-        );
-
-        // Clamp score
-        if (score < 0) score = 0.0;
-        if (score > 100) score = 100.0;
-
-        metric.setProductivityScore(score);
+        metric.setScore(score);
         return metric;
     }
 
     @Override
     public Optional<ProductivityMetricRecord> getMetricById(Long id) {
-        return Optional.empty();
+        return Optional.empty(); // mocked for tests
     }
 
     @Override
     public List<ProductivityMetricRecord> getAllMetrics() {
-        return List.of();
+        return List.of(); // mocked for tests
     }
 }

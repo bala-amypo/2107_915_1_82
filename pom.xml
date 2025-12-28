@@ -15,7 +15,7 @@
     <name>demo</name>
     <description>Remote Work Productivity Metrics Collector</description>
 
-    <!-- ================= SPRING BOOT ================= -->
+    <!-- Spring Boot Parent -->
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
@@ -26,7 +26,7 @@
     <properties>
         <java.version>17</java.version>
     </properties>
-    
+
     <!-- ================= DEPENDENCIES ================= -->
     <dependencies>
 
@@ -56,7 +56,7 @@
             <scope>runtime</scope>
         </dependency>
 
-        <!-- Spring Security (ONLY ONCE ✅) -->
+        <!-- Spring Security (ONLY ONCE) -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
@@ -76,12 +76,17 @@
             <version>2.5.0</version>
         </dependency>
 
-        <!-- ================= TESTING ================= -->
-
-        <!-- Spring Boot Test (NO JUnit Engine) -->
+        <!-- Spring Boot Test (NO JUnit engine) -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Mockito -->
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
             <scope>test</scope>
         </dependency>
 
@@ -90,13 +95,6 @@
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
             <version>7.10.2</version>
-            <scope>test</scope>
-        </dependency>
-
-        <!-- Mockito -->
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-core</artifactId>
             <scope>test</scope>
         </dependency>
 
@@ -117,18 +115,14 @@
                 </configuration>
             </plugin>
 
-            <!-- FORCE TESTNG -->
+            <!-- Force TestNG -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.2.5</version>
                 <configuration>
                     <useModulePath>false</useModulePath>
-                    <providers>
-                        <provider>
-                            <name>testng</name>
-                        </provider>
-                    </providers>
+                    <provider>testng</provider>
                     <includes>
                         <include>**/*Test.java</include>
                     </includes>
@@ -139,8 +133,6 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <artifactId>spring-boot-starter-security</artifactId>
-
             </plugin>
 
         </plugins>
