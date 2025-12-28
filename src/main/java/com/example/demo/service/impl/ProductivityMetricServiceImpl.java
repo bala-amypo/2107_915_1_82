@@ -14,7 +14,7 @@ public class ProductivityMetricServiceImpl implements ProductivityMetricService 
     @Override
     public ProductivityMetricRecord recordMetric(ProductivityMetricRecord metric) {
 
-        double hours = metric.getHoursLogged() == null ? 0.0 : metric.getHoursLogged();
+        double hours = metric.getHoursLogged() == null ? 0 : metric.getHoursLogged();
         int tasks = metric.getTasksCompleted() == null ? 0 : metric.getTasksCompleted();
         int meetings = metric.getMeetingsAttended() == null ? 0 : metric.getMeetingsAttended();
 
