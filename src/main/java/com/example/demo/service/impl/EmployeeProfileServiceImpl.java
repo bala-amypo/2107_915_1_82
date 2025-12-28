@@ -6,7 +6,6 @@ import com.example.demo.service.EmployeeProfileService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class EmployeeProfileServiceImpl implements EmployeeProfileService {
@@ -28,13 +27,15 @@ public class EmployeeProfileServiceImpl implements EmployeeProfileService {
     }
 
     @Override
-    public Optional<EmployeeProfile> getEmployeeById(Long id) {
-        return repository.findById(id);
+    public EmployeeProfile getEmployeeById(Long id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Employee not found with id: " + id));
     }
 
     @Override
-    public Optional<EmployeeProfile> findByEmployeeId(String employeeId) {
-        return repository.findByEmployeeId(employeeId);
+    public EmployeeProfile findByEmployeeId(String employeeId) {
+        return repository.findByEmployeeId(employeeId)
+                .orElseThrow(() -> new RuntimeException("Employee not found with employeeId: " + employeeId));
     }
 
     @Override
@@ -44,13 +45,9 @@ public class EmployeeProfileServiceImpl implements EmployeeProfileService {
 
     @Override
     public EmployeeProfile updateEmployeeStatus(Long id, boolean active) {
-        Optional<EmployeeProfile> opt = repository.findById(id);
-        if (opt.isPresent()) {
-            EmployeeProfile emp = opt.get();
-            emp.setActive(active);
-            return repository.save(emp);
-        }
-        return null;
+        EmployeeProfile emp = getEmployeeById(id);
+        emp.setActive(active);
+        return repository.save(emp);
     }
 
     @Override
