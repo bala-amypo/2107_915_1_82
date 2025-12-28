@@ -3,7 +3,6 @@ package com.example.demo.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "employee_profiles")
 public class EmployeeProfile {
 
     @Id
@@ -14,15 +13,15 @@ public class EmployeeProfile {
     private String fullName;
     private String email;
     private String teamName;
-    private Boolean active = true;
+    private Boolean active;
 
-    /* ===== getters & setters REQUIRED by tests ===== */
+    // ===== GETTERS & SETTERS =====
 
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {   // REQUIRED
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -34,19 +33,19 @@ public class EmployeeProfile {
         this.employeeId = employeeId;
     }
 
-    public String getFullName() {  // REQUIRED
+    public String getFullName() {
         return fullName;
     }
 
-    public void setFullName(String fullName) { // REQUIRED
+    public void setFullName(String fullName) {
         this.fullName = fullName;
     }
 
-    public String getEmail() {     // REQUIRED
+    public String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) { // REQUIRED
+    public void setEmail(String email) {
         this.email = email;
     }
 
@@ -58,23 +57,11 @@ public class EmployeeProfile {
         this.teamName = teamName;
     }
 
-    public Boolean getActive() {   // REQUIRED
+    public Boolean getActive() {
         return active;
     }
 
     public void setActive(Boolean active) {
         this.active = active;
-    }
-
-    /* ===== 🚨 TEST HACK METHODS 🚨 ===== */
-
-    // Tests wrongly call isPresent() on EmployeeProfile
-    public boolean isPresent() {
-        return true;
-    }
-
-    // Tests wrongly call isEmpty() on EmployeeProfile
-    public boolean isEmpty() {
-        return false;
     }
 }
