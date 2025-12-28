@@ -1,12 +1,21 @@
 package com.example.demo.repository;
 
-import com.example.demo.model.Employee;
+import com.example.demo.model.*;
 import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.*;
 
-import java.util.Optional;
+public interface EmployeeProfileRepository extends JpaRepository<EmployeeProfile, Long> {
+    Optional<EmployeeProfile> findByEmployeeId(String employeeId);
+}
 
-public interface EmployeeProfileRepository
-        extends JpaRepository<Employee, Long> {
+public interface ProductivityMetricRecordRepository extends JpaRepository<ProductivityMetricRecord, Long> {
+    List<ProductivityMetricRecord> findByEmployeeId(Long employeeId);
+}
 
-    Optional<Employee> findByEmail(String email);
+public interface AnomalyRuleRepository extends JpaRepository<AnomalyRule, Long> {
+    List<AnomalyRule> findByActiveTrue();
+}
+
+public interface AnomalyFlagRecordRepository extends JpaRepository<AnomalyFlagRecord, Long> {
+    List<AnomalyFlagRecord> findByMetricId(Long metricId);
 }
