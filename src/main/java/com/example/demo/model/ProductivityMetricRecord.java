@@ -5,10 +5,8 @@ import java.time.LocalDate;
 
 @Entity
 @Table(
-        name = "productivity_metrics",
-        uniqueConstraints = {
-                @UniqueConstraint(columnNames = {"employee_id", "date"})
-        }
+    name = "productivity_metrics",
+    uniqueConstraints = @UniqueConstraint(columnNames = {"employeeId", "date"})
 )
 public class ProductivityMetricRecord {
 
@@ -19,57 +17,25 @@ public class ProductivityMetricRecord {
     private Long employeeId;
     private LocalDate date;
 
-    private Double hoursLogged;
-    private Integer tasksCompleted;
-    private Integer meetingsAttended;
+    private Double hoursLogged = 0.0;
+    private Integer tasksCompleted = 0;
+    private Integer meetingsAttended = 0;
 
-    private Double productivityScore;
+    private Double productivityScore = 0.0;
 
     @Lob
     private String rawDataJson;
 
-    public ProductivityMetricRecord() {
-        this.hoursLogged = 0.0;
-        this.tasksCompleted = 0;
-        this.meetingsAttended = 0;
-        this.productivityScore = 0.0;
-    }
-
     /* ===== REQUIRED BY TESTS ===== */
 
-    // 🔹 HOURS
     public Double getHoursLogged() {
         return hoursLogged;
     }
 
-    public void setHoursLogged(Double hoursLogged) {
+    public void setHoursLogged(double hoursLogged) {
         this.hoursLogged = hoursLogged;
     }
 
-    // 🔹 OVERLOAD (for int input from tests)
-    public void setHoursLogged(int hoursLogged) {
-        this.hoursLogged = (double) hoursLogged;
-    }
-
-    // 🔹 TASKS
-    public Integer getTasksCompleted() {
-        return tasksCompleted;
-    }
-
-    public void setTasksCompleted(Integer tasksCompleted) {
-        this.tasksCompleted = tasksCompleted;
-    }
-
-    // 🔹 MEETINGS
-    public Integer getMeetingsAttended() {
-        return meetingsAttended;
-    }
-
-    public void setMeetingsAttended(Integer meetingsAttended) {
-        this.meetingsAttended = meetingsAttended;
-    }
-
-    // 🔹 SCORE
     public Double getProductivityScore() {
         return productivityScore;
     }
@@ -78,11 +44,14 @@ public class ProductivityMetricRecord {
         this.productivityScore = productivityScore;
     }
 
-    public void setProductivityScore(int productivityScore) {
-        this.productivityScore = (double) productivityScore;
-    }
+    /* ===== STANDARD ===== */
 
-    // 🔹 OTHER
+    public Integer getTasksCompleted() { return tasksCompleted; }
+    public void setTasksCompleted(Integer tasksCompleted) { this.tasksCompleted = tasksCompleted; }
+
+    public Integer getMeetingsAttended() { return meetingsAttended; }
+    public void setMeetingsAttended(Integer meetingsAttended) { this.meetingsAttended = meetingsAttended; }
+
     public Long getEmployeeId() { return employeeId; }
     public void setEmployeeId(Long employeeId) { this.employeeId = employeeId; }
 
