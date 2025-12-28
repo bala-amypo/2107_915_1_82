@@ -10,30 +10,31 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ProductivityMetricServiceImpl implements ProductivityMetricService {
+public class ProductivityMetricServiceImpl
+        implements ProductivityMetricService {
 
     private final ProductivityMetricRepository repository;
 
-    public ProductivityMetricServiceImpl(ProductivityMetricRepository repository) {
+    public ProductivityMetricServiceImpl(
+            ProductivityMetricRepository repository
+    ) {
         this.repository = repository;
     }
 
     @Override
-    public ProductivityMetricRecord recordMetric(ProductivityMetricRecord metric) {
+    public ProductivityMetricRecord recordMetric(
+            ProductivityMetricRecord metric
+    ) {
+        // ✅ sanitize inputs (important for failed tests)
+        double hours = metric.getHoursLogged() < 0 ? 0 : metric.getHoursLogged();
+        int tasks = metric.getTasksCompleted() < 0 ? 0 : metric.getTasksCompleted();
+        int meetings = metric.getMeetingsAttended() < 0 ? 0 : metric.getMeetingsAttended();
 
-        // Defensive defaults
-        if (metric.getHoursWorked() == null) metric.setHoursWorked(0.0);
-        if (metric.getTasksCompleted() == null) metric.setTasksCompleted(0);
-        if (metric.getMeetingsAttended() == null) metric.setMeetingsAttended(0);
-
-        // Compute score STRICTLY
         double score = ProductivityCalculator.computeScore(
-                metric.getHoursWorked(),
-                metric.getTasksCompleted(),
-                metric.getMeetingsAttended()
+                hours, tasks, meetings
         );
 
-        metric.setScore(score);
+        metric.setProductivityScore(score);
 
         return repository.save(metric);
     }

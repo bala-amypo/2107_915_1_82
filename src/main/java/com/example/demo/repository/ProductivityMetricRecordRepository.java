@@ -2,10 +2,17 @@ package com.example.demo.repository;
 
 import com.example.demo.model.ProductivityMetricRecord;
 import org.springframework.data.jpa.repository.JpaRepository;
-import java.util.List;
+import org.springframework.stereotype.Repository;
 
-public interface ProductivityMetricRecordRepository
+import java.time.LocalDate;
+import java.util.Optional;
+
+@Repository
+public interface ProductivityMetricRepository
         extends JpaRepository<ProductivityMetricRecord, Long> {
 
-    List<ProductivityMetricRecord> findByEmployeeId(Long employeeId);
+    Optional<ProductivityMetricRecord> findByEmployeeIdAndDate(
+            Long employeeId,
+            LocalDate date
+    );
 }
