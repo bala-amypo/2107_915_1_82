@@ -1,12 +1,12 @@
 package com.example.demo.repository;
 
-import com.example.demo.model.EmployeeProfile;
+import com.example.demo.model.Employee;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
-public interface EmployeeProfileRepository
-        extends JpaRepository<EmployeeProfile, Long> {
+public interface EmployeeRepository
+        extends JpaRepository<Employee, Long> {
 
-    Optional<EmployeeProfile> findByEmployeeId(String employeeId);
+    Optional<Employee> findByEmail(String email);
 }

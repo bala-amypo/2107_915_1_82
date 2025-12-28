@@ -15,26 +15,45 @@ public class ProductivityMetricServiceImpl
 
     private final ProductivityMetricRepository repository;
 
-    public ProductivityMetricServiceImpl(
-            ProductivityMetricRepository repository
-    ) {
+    public ProductivityMetricServiceImpl(ProductivityMetricRepository repository) {
         this.repository = repository;
     }
 
     @Override
-    public ProductivityMetricRecord recordMetric(
-            ProductivityMetricRecord metric
-    ) {
-        // ✅ sanitize inputs (important for failed tests)
-        double hours = metric.getHoursLogged() < 0 ? 0 : metric.getHoursLogged();
-        int tasks = metric.getTasksCompleted() < 0 ? 0 : metric.getTasksCompleted();
-        int meetings = metric.getMeetingsAttended() < 0 ? 0 : metric.getMeetingsAttended();
+    public ProductivityMetricRecord recordMetric(ProductivityMetricRecord metric) {
+
+        /* ===============================
+           🔐 FULL SANITIZATION (MANDATORY)
+           =============================== */
+
+        double hours = metric.getHoursWorked() == null || metric.getHoursWorked() < 0
+                ? 0.0
+                : metric.getHoursWorked();
+
+        int tasks = metric.getTasksCompleted() == null || metric.getTasksCompleted() < 0
+                ? 0
+                : metric.getTasksCompleted();
+
+        int meetings = metric.getMeetingsAttended() == null || metric.getMeetingsAttended() < 0
+                ? 0
+                : metric.getMeetingsAttended();
+
+        /* ===============================
+           📊 SCORE CALCULATION
+           =============================== */
 
         double score = ProductivityCalculator.computeScore(
                 hours, tasks, meetings
         );
 
-        metric.setProductivityScore(score);
+        /* ===============================
+           ✅ APPLY RESULTS BACK
+           =============================== */
+
+        metric.setHoursWorked(hours);
+        metric.setTasksCompleted(tasks);
+        metric.setMeetingsAttended(meetings);
+        metric.setScore(score);
 
         return repository.save(metric);
     }
