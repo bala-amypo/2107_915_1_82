@@ -27,13 +27,11 @@ public class EmployeeProfileController {
     }
 
     @GetMapping("/{id}")
-    public EmployeeProfile getEmployeeById(@PathVariable Long id) {
-        EmployeeProfile emp = service.getEmployeeById(id);
-        if (emp == null) {
-            throw new RuntimeException("Employee not found");
-        }
-        return emp;
+    public EmployeeProfile get(@PathVariable Long id) {
+        return service.getEmployeeById(id)
+            .orElseThrow(() -> new RuntimeException("Employee not found"));
     }
+
 
     @PutMapping
     public EmployeeProfile updateEmployee(@RequestBody EmployeeProfile employee) {
