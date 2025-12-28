@@ -1,6 +1,7 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.model.ProductivityMetricRecord;
+import com.example.demo.repository.ProductivityMetricRepository;
 import com.example.demo.service.ProductivityMetricService;
 import com.example.demo.util.ProductivityCalculator;
 import org.springframework.stereotype.Service;
@@ -11,57 +12,39 @@ import java.util.Optional;
 @Service
 public class ProductivityMetricServiceImpl implements ProductivityMetricService {
 
+    private final ProductivityMetricRepository repository;
+
+    public ProductivityMetricServiceImpl(ProductivityMetricRepository repository) {
+        this.repository = repository;
+    }
+
     @Override
     public ProductivityMetricRecord recordMetric(ProductivityMetricRecord metric) {
 
-        if (metric == null) {
-            return null;
-        }
+        // Defensive defaults
+        if (metric.getHoursWorked() == null) metric.setHoursWorked(0.0);
+        if (metric.getTasksCompleted() == null) metric.setTasksCompleted(0);
+        if (metric.getMeetingsAttended() == null) metric.setMeetingsAttended(0);
 
-        // 🔴 RULE 1: ANY update (id present) → force score 0.0
-        if (metric.getId() != null) {
-            metric.setProductivityScore(0.0);
-            return metric;
-        }
+        // Compute score STRICTLY
+        double score = ProductivityCalculator.computeScore(
+                metric.getHoursWorked(),
+                metric.getTasksCompleted(),
+                metric.getMeetingsAttended()
+        );
 
-        // 🔴 RULE 2: Any partial / invalid input → score 0.0
-        if (metric.getHoursLogged() == null ||
-            metric.getTasksCompleted() == null ||
-            metric.getMeetingsAttended() == null) {
+        metric.setScore(score);
 
-            metric.setProductivityScore(0.0);
-            return metric;
-        }
-
-        double hours = metric.getHoursLogged();
-        int tasks = metric.getTasksCompleted().intValue();
-        int meetings = metric.getMeetingsAttended().intValue();
-
-        if (hours <= 0 || tasks <= 0 || meetings < 0 ||
-            Double.isNaN(hours)) {
-
-            metric.setProductivityScore(0.0);
-            return metric;
-        }
-
-        // ✅ ONLY HERE score is allowed
-        double score = ProductivityCalculator.computeScore(hours, tasks, meetings);
-
-        if (Double.isNaN(score) || score < 0) {
-            score = 0.0;
-        }
-
-        metric.setProductivityScore(score);
-        return metric;
+        return repository.save(metric);
     }
 
     @Override
     public Optional<ProductivityMetricRecord> getMetricById(Long id) {
-        return Optional.empty();
+        return repository.findById(id);
     }
 
     @Override
     public List<ProductivityMetricRecord> getAllMetrics() {
-        return List.of();
+        return repository.findAll();
     }
 }
