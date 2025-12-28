@@ -28,13 +28,13 @@ public class EmployeeProfileServiceImpl implements EmployeeProfileService {
     }
 
     @Override
-    public EmployeeProfile getEmployeeById(Long id) {
-        return repository.findById(id).orElse(null); // ✅ IMPORTANT
+    public Optional<EmployeeProfile> getEmployeeById(Long id) {
+        return repository.findById(id);
     }
 
     @Override
-    public EmployeeProfile findByEmployeeId(String employeeId) {
-        return repository.findByEmployeeId(employeeId).orElse(null); // ✅ IMPORTANT
+    public Optional<EmployeeProfile> findByEmployeeId(String employeeId) {
+        return repository.findByEmployeeId(employeeId);
     }
 
     @Override
@@ -44,8 +44,9 @@ public class EmployeeProfileServiceImpl implements EmployeeProfileService {
 
     @Override
     public EmployeeProfile updateEmployeeStatus(Long id, boolean active) {
-        EmployeeProfile emp = repository.findById(id).orElse(null);
-        if (emp != null) {
+        Optional<EmployeeProfile> opt = repository.findById(id);
+        if (opt.isPresent()) {
+            EmployeeProfile emp = opt.get();
             emp.setActive(active);
             return repository.save(emp);
         }
