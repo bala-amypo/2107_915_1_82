@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/employees")
+@RequestMapping("/employees")
 public class EmployeeProfileController {
 
     private final EmployeeProfileService service;
@@ -28,24 +28,29 @@ public class EmployeeProfileController {
 
     @GetMapping("/{id}")
     public EmployeeProfile getById(@PathVariable Long id) {
-        return service.getEmployeeById(id); // ✅ FIXED
+        return service.getEmployeeById(id)
+                .orElseThrow(() -> new RuntimeException("Employee not found"));
     }
 
-    @GetMapping("/employee/{employeeId}")
+    @GetMapping("/by-employee-id/{employeeId}")
     public EmployeeProfile getByEmployeeId(@PathVariable String employeeId) {
-        return service.findByEmployeeId(employeeId); // ✅ FIXED
+        return service.findByEmployeeId(employeeId)
+                .orElseThrow(() -> new RuntimeException("Employee not found"));
     }
 
     @PutMapping
     public EmployeeProfile update(@RequestBody EmployeeProfile employee) {
-        return service.updateEmployee(employee);
+        return service.updateEmployee(employee)
+                .orElseThrow(() -> new RuntimeException("Employee not found"));
     }
 
-    @PatchMapping("/{id}/status")
+    @PutMapping("/{id}/status")
     public EmployeeProfile updateStatus(
             @PathVariable Long id,
             @RequestParam boolean active) {
-        return service.updateEmployeeStatus(id, active);
+
+        return service.updateEmployeeStatus(id, active)
+                .orElseThrow(() -> new RuntimeException("Employee not found"));
     }
 
     @DeleteMapping("/{id}")
