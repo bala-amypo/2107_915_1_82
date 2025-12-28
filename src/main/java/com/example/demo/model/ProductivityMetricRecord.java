@@ -5,10 +5,10 @@ import java.time.LocalDate;
 
 @Entity
 @Table(
-    name = "productivity_metrics",
-    uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"employee_id", "date"})
-    }
+        name = "productivity_metrics",
+        uniqueConstraints = {
+                @UniqueConstraint(columnNames = {"employee_id", "date"})
+        }
 )
 public class ProductivityMetricRecord {
 
@@ -16,53 +16,78 @@ public class ProductivityMetricRecord {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "employee_id", nullable = false)
     private Long employeeId;
-
     private LocalDate date;
 
-    // ===== CORE METRICS =====
-    private Double hoursLogged = 0.0;
-    private Integer tasksCompleted = 0;
-    private Integer meetingsAttended = 0;
+    private Double hoursLogged;
+    private Integer tasksCompleted;
+    private Integer meetingsAttended;
 
-    // ===== SCORE =====
-    private Double productivityScore = 0.0;
+    private Double productivityScore;
 
     @Lob
     private String rawDataJson;
 
-    /* ================= GETTERS / SETTERS ================= */
+    public ProductivityMetricRecord() {
+        this.hoursLogged = 0.0;
+        this.tasksCompleted = 0;
+        this.meetingsAttended = 0;
+        this.productivityScore = 0.0;
+    }
 
-    public Long getId() { return id; }
+    /* ===== REQUIRED BY TESTS ===== */
 
+    // 🔹 HOURS
+    public Double getHoursLogged() {
+        return hoursLogged;
+    }
+
+    public void setHoursLogged(Double hoursLogged) {
+        this.hoursLogged = hoursLogged;
+    }
+
+    // 🔹 OVERLOAD (for int input from tests)
+    public void setHoursLogged(int hoursLogged) {
+        this.hoursLogged = (double) hoursLogged;
+    }
+
+    // 🔹 TASKS
+    public Integer getTasksCompleted() {
+        return tasksCompleted;
+    }
+
+    public void setTasksCompleted(Integer tasksCompleted) {
+        this.tasksCompleted = tasksCompleted;
+    }
+
+    // 🔹 MEETINGS
+    public Integer getMeetingsAttended() {
+        return meetingsAttended;
+    }
+
+    public void setMeetingsAttended(Integer meetingsAttended) {
+        this.meetingsAttended = meetingsAttended;
+    }
+
+    // 🔹 SCORE
+    public Double getProductivityScore() {
+        return productivityScore;
+    }
+
+    public void setProductivityScore(Double productivityScore) {
+        this.productivityScore = productivityScore;
+    }
+
+    public void setProductivityScore(int productivityScore) {
+        this.productivityScore = (double) productivityScore;
+    }
+
+    // 🔹 OTHER
     public Long getEmployeeId() { return employeeId; }
     public void setEmployeeId(Long employeeId) { this.employeeId = employeeId; }
 
     public LocalDate getDate() { return date; }
     public void setDate(LocalDate date) { this.date = date; }
-
-    // 🔥 REQUIRED BY TESTS
-    public Double getHoursLogged() { return hoursLogged; }
-    public void setHoursLogged(double hoursLogged) {
-        this.hoursLogged = Math.max(0, hoursLogged);
-    }
-
-    public Integer getTasksCompleted() { return tasksCompleted; }
-    public void setTasksCompleted(Integer tasksCompleted) {
-        this.tasksCompleted = Math.max(0, tasksCompleted);
-    }
-
-    public Integer getMeetingsAttended() { return meetingsAttended; }
-    public void setMeetingsAttended(Integer meetingsAttended) {
-        this.meetingsAttended = Math.max(0, meetingsAttended);
-    }
-
-    // 🔥 REQUIRED BY TESTS
-    public Double getProductivityScore() { return productivityScore; }
-    public void setProductivityScore(double score) {
-        this.productivityScore = Math.max(0, score);
-    }
 
     public String getRawDataJson() { return rawDataJson; }
     public void setRawDataJson(String rawDataJson) { this.rawDataJson = rawDataJson; }

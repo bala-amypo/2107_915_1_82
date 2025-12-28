@@ -14,18 +14,11 @@ public class ProductivityMetricServiceImpl implements ProductivityMetricService 
     @Override
     public ProductivityMetricRecord recordMetric(ProductivityMetricRecord metric) {
 
-        // 🔒 Null safety (tests expect 0.0, not NPE)
         double hours = metric.getHoursLogged() == null ? 0.0 : metric.getHoursLogged();
         int tasks = metric.getTasksCompleted() == null ? 0 : metric.getTasksCompleted();
         int meetings = metric.getMeetingsAttended() == null ? 0 : metric.getMeetingsAttended();
 
-        double score = ProductivityCalculator.computeScore(
-                hours,
-                tasks,
-                meetings
-        );
-
-        // 🔥 TEST-EXPECTED METHOD
+        double score = ProductivityCalculator.computeScore(hours, tasks, meetings);
         metric.setProductivityScore(score);
 
         return metric;
