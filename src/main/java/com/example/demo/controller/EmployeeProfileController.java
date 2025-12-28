@@ -30,9 +30,11 @@ public class EmployeeProfileController {
 
     // READ BY ID
     @GetMapping("/{id}")
-    public EmployeeProfile getById(@PathVariable Long id) {
-        return service.getEmployeeById(id);
-    }
+    public EmployeeProfile getEmployee(@PathVariable Long id) {
+    return service.getEmployeeById(id)
+            .orElseThrow(() -> new RuntimeException("Employee not found"));
+}
+
 
     // UPDATE
     @PutMapping("/{id}")
