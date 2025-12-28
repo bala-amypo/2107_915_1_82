@@ -4,89 +4,63 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "productivity_metrics")
+@Table(
+    name = "productivity_metrics",
+    uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"employee_id", "date"})
+    }
+)
 public class ProductivityMetricRecord {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "employee_id", nullable = false)
     private Long employeeId;
 
     private LocalDate date;
 
-    private Double hoursLogged;
-    private Double tasksCompleted;
-    private Double meetingsAttended;
+    private Double hoursWorked;
+    private Integer tasksCompleted;
+    private Integer meetingsAttended;
 
-    private Double productivityScore;
+    private Double score;
 
-    @Column(columnDefinition = "TEXT")
+    @Lob
     private String rawDataJson;
 
-    /* ================= GETTERS ================= */
+    /* ===== DEFAULTS ===== */
 
-    public Long getId() {
-        return id;
+    public ProductivityMetricRecord() {
+        this.hoursWorked = 0.0;
+        this.tasksCompleted = 0;
+        this.meetingsAttended = 0;
+        this.score = 0.0;
     }
 
-    public Long getEmployeeId() {
-        return employeeId;
-    }
+    /* ===== GETTERS / SETTERS ===== */
 
-    public LocalDate getDate() {
-        return date;
-    }
+    public Long getId() { return id; }
 
-    public Double getHoursLogged() {
-        return hoursLogged;
-    }
+    public Long getEmployeeId() { return employeeId; }
+    public void setEmployeeId(Long employeeId) { this.employeeId = employeeId; }
 
-    public Double getTasksCompleted() {
-        return tasksCompleted;
-    }
+    public LocalDate getDate() { return date; }
+    public void setDate(LocalDate date) { this.date = date; }
 
-    public Double getMeetingsAttended() {
-        return meetingsAttended;
-    }
+    public Double getHoursWorked() { return hoursWorked; }
+    public void setHoursWorked(Double hoursWorked) { this.hoursWorked = hoursWorked; }
 
-    public Double getProductivityScore() {
-        return productivityScore;
-    }
+    public Integer getTasksCompleted() { return tasksCompleted; }
+    public void setTasksCompleted(Integer tasksCompleted) { this.tasksCompleted = tasksCompleted; }
 
-    public String getRawDataJson() {
-        return rawDataJson;
-    }
+    public Integer getMeetingsAttended() { return meetingsAttended; }
+    public void setMeetingsAttended(Integer meetingsAttended) { this.meetingsAttended = meetingsAttended; }
 
-    /* ================= SETTERS ================= */
+    public Double getScore() { return score; }
+    public void setScore(Double score) { this.score = score; }
 
-    public void setEmployeeId(Long employeeId) {
-        this.employeeId = employeeId;
-    }
-
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
-
-    // 🔑 OVERLOADED SETTERS (THIS IS THE FIX)
-
-    public void setHoursLogged(double hoursLogged) {
-        this.hoursLogged = hoursLogged;
-    }
-
-    public void setTasksCompleted(int tasksCompleted) {
-        this.tasksCompleted = (double) tasksCompleted;
-    }
-
-    public void setMeetingsAttended(int meetingsAttended) {
-        this.meetingsAttended = (double) meetingsAttended;
-    }
-
-    public void setProductivityScore(double productivityScore) {
-        this.productivityScore = productivityScore;
-    }
-
-    public void setRawDataJson(String rawDataJson) {
-        this.rawDataJson = rawDataJson;
-    }
+    public String getRawDataJson() { return rawDataJson; }
+    public void setRawDataJson(String rawDataJson) { this.rawDataJson = rawDataJson; }
 }

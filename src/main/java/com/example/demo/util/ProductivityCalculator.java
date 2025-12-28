@@ -2,17 +2,24 @@ package com.example.demo.util;
 
 public class ProductivityCalculator {
 
-    public static double computeScore(double hours, double tasks, double meetings) {
+    private ProductivityCalculator() {}
 
-        // Normalize invalid values
-        if (Double.isNaN(hours) || hours < 0) hours = 0;
-        if (Double.isNaN(tasks) || tasks < 0) tasks = 0;
-        if (Double.isNaN(meetings) || meetings < 0) meetings = 0;
+    public static double computeScore(Double hours, Integer tasks, Integer meetings) {
 
-        // Core formula
-        double score = (hours * 10.0) + (tasks * 5.0) - (meetings * 2.0);
+        // ANY null → score = 0
+        if (hours == null || tasks == null || meetings == null) {
+            return 0.0;
+        }
 
-        // Clamp score (required by tests)
+        // ANY negative → score = 0
+        if (hours < 0 || tasks < 0 || meetings < 0) {
+            return 0.0;
+        }
+
+        // Normal calculation
+        double score = (hours * 10) + (tasks * 5) - (meetings * 2);
+
+        // Clamp
         if (score < 0) score = 0;
         if (score > 100) score = 100;
 
