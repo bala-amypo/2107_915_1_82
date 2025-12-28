@@ -6,6 +6,7 @@ import com.example.demo.service.EmployeeProfileService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class EmployeeProfileServiceImpl implements EmployeeProfileService {
@@ -27,12 +28,12 @@ public class EmployeeProfileServiceImpl implements EmployeeProfileService {
     }
 
     @Override
-    public EmployeeProfile getEmployeeById(Long id) {
-        return repository.findById(id).orElse(null); // test-safe
+    public Optional<EmployeeProfile> getEmployeeById(Long id) {
+        return repository.findById(id);
     }
 
     @Override
-    public EmployeeProfile findByEmployeeId(String employeeId) {
+    public Optional<EmployeeProfile> findByEmployeeId(String employeeId) {
         return repository.findByEmployeeId(employeeId);
     }
 
@@ -43,8 +44,9 @@ public class EmployeeProfileServiceImpl implements EmployeeProfileService {
 
     @Override
     public EmployeeProfile updateEmployeeStatus(Long id, boolean active) {
-        EmployeeProfile emp = repository.findById(id).orElse(null);
-        if (emp != null) {
+        Optional<EmployeeProfile> opt = repository.findById(id);
+        if (opt.isPresent()) {
+            EmployeeProfile emp = opt.get();
             emp.setActive(active);
             return repository.save(emp);
         }

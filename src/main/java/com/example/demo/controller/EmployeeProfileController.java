@@ -28,12 +28,12 @@ public class EmployeeProfileController {
 
     @GetMapping("/{id}")
     public EmployeeProfile getById(@PathVariable Long id) {
-        return service.getEmployeeById(id);
+        return service.getEmployeeById(id).orElse(null);
     }
 
     @GetMapping("/employee/{employeeId}")
     public EmployeeProfile getByEmployeeId(@PathVariable String employeeId) {
-        return service.findByEmployeeId(employeeId);
+        return service.findByEmployeeId(employeeId).orElse(null);
     }
 
     @PutMapping
