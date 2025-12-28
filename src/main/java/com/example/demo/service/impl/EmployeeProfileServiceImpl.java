@@ -25,4 +25,9 @@ public class EmployeeProfileServiceImpl implements EmployeeProfileService {
     public EmployeeProfile save(EmployeeProfile profile) {
         return repository.save(profile);
     }
+
+    @Override
+    public void deleteEmployee(Long id) {
+        repository.deleteById(id);
+    }
 }
