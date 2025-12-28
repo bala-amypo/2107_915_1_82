@@ -55,6 +55,7 @@ public class EmployeeProfileServiceImpl implements EmployeeProfileService {
 
     @Override
     public Optional<EmployeeProfile> findByEmployeeId(String employeeId) {
-        return repository.findByEmployeeId(employeeId);
+        return Optional.ofNullable(repository.findByEmployeeId(employeeId));
     }
+
 }
