@@ -14,39 +14,35 @@ public class ProductivityMetricServiceImpl implements ProductivityMetricService 
     @Override
     public ProductivityMetricRecord recordMetric(ProductivityMetricRecord metric) {
 
-        // 🔴 RESET BOTH FIELDS (VERY IMPORTANT)
-        metric.setScore(0.0);
+        // Always initialize score
         metric.setProductivityScore(0.0);
 
-        // Null safety
+        // Null check
         if (metric.getHoursLogged() == null
                 || metric.getTasksCompleted() == null
                 || metric.getMeetingsAttended() == null) {
             return metric;
         }
 
-        // Negative values → keep score = 0.0
+        // Negative values → force 0.0
         if (metric.getHoursLogged() < 0
                 || metric.getTasksCompleted() < 0
                 || metric.getMeetingsAttended() < 0) {
             return metric;
         }
 
-        // Compute
+        // Compute score
         double score = ProductivityCalculator.computeScore(
                 metric.getHoursLogged(),
                 metric.getTasksCompleted(),
                 metric.getMeetingsAttended()
         );
 
-        // Clamp
+        // Clamp score
         if (score < 0) score = 0.0;
         if (score > 100) score = 100.0;
 
-        // 🔴 SET BOTH FIELDS
-        metric.setScore(score);
         metric.setProductivityScore(score);
-
         return metric;
     }
 
