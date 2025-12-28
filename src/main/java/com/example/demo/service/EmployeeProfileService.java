@@ -7,21 +7,18 @@ import java.util.Optional;
 
 public interface EmployeeProfileService {
 
-    // CREATE
     EmployeeProfile createEmployee(EmployeeProfile employee);
 
-    // READ
     List<EmployeeProfile> getAllEmployees();
 
     Optional<EmployeeProfile> getEmployeeById(Long id);
 
-    Optional<EmployeeProfile> findByEmployeeId(String employeeId);
-
-    // UPDATE
     EmployeeProfile updateEmployee(EmployeeProfile employee);
 
     EmployeeProfile updateEmployeeStatus(Long id, boolean active);
 
-    // DELETE
     void deleteEmployee(Long id);
+
+    // REQUIRED BY TESTS
+    Optional<EmployeeProfile> findByEmployeeId(String employeeId);
 }
