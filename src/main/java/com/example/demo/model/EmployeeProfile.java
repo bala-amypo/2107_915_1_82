@@ -3,46 +3,26 @@ package com.example.demo.model;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "employee_profiles")
 public class EmployeeProfile {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(unique = true, nullable = false)
     private String employeeId;
+
     private String fullName;
     private String email;
     private String teamName;
-    private boolean active;
 
-    // ===============================
-    // 🔥 TEST-COMPATIBILITY METHODS
-    // ===============================
+    private Boolean active = true;
 
-    // Tests wrongly treat this as Optional
-    public boolean isPresent() {
-        return true;
-    }
-
-    public boolean isEmpty() {
-        return false;
-    }
-
-    // Tests expect getActive(), NOT isActive()
-    public boolean getActive() {
-        return active;
-    }
-
-    // ===============================
-    // Getters & Setters
-    // ===============================
+    /* ===== GETTERS & SETTERS ===== */
 
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getEmployeeId() {
@@ -77,7 +57,11 @@ public class EmployeeProfile {
         this.teamName = teamName;
     }
 
-    public void setActive(boolean active) {
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
         this.active = active;
     }
 }

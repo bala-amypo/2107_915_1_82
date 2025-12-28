@@ -28,8 +28,13 @@ public class EmployeeProfileServiceImpl implements EmployeeProfileService {
     }
 
     @Override
-    public EmployeeProfile getEmployeeById(Long id) {
-        return repository.findById(id).orElse(null); // 🔥 FIX
+    public Optional<EmployeeProfile> getEmployeeById(Long id) {
+        return repository.findById(id);
+    }
+
+    @Override
+    public Optional<EmployeeProfile> findByEmployeeId(String employeeId) {
+        return repository.findByEmployeeId(employeeId);
     }
 
     @Override
@@ -39,21 +44,15 @@ public class EmployeeProfileServiceImpl implements EmployeeProfileService {
 
     @Override
     public EmployeeProfile updateEmployeeStatus(Long id, boolean active) {
-        return repository.findById(id)
-                .map(emp -> {
-                    emp.setActive(active);
-                    return repository.save(emp);
-                })
-                .orElse(null);
+        EmployeeProfile emp = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Employee not found"));
+
+        emp.setActive(active);
+        return repository.save(emp);
     }
 
     @Override
     public void deleteEmployee(Long id) {
         repository.deleteById(id);
-    }
-
-    @Override
-    public Optional<EmployeeProfile> findByEmployeeId(String employeeId) {
-        return repository.findByEmployeeId(employeeId);
     }
 }

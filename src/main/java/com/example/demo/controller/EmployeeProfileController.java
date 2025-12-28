@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/employees")
+@RequestMapping("/api/employees")
 public class EmployeeProfileController {
 
     private final EmployeeProfileService service;
@@ -17,36 +17,42 @@ public class EmployeeProfileController {
     }
 
     @PostMapping
-    public EmployeeProfile createEmployee(@RequestBody EmployeeProfile employee) {
+    public EmployeeProfile create(@RequestBody EmployeeProfile employee) {
         return service.createEmployee(employee);
     }
 
     @GetMapping
-    public List<EmployeeProfile> getAllEmployees() {
+    public List<EmployeeProfile> getAll() {
         return service.getAllEmployees();
     }
 
     @GetMapping("/{id}")
-    public EmployeeProfile get(@PathVariable Long id) {
+    public EmployeeProfile getById(@PathVariable Long id) {
         return service.getEmployeeById(id)
-            .orElseThrow(() -> new RuntimeException("Employee not found"));
+                .orElseThrow(() -> new RuntimeException("Employee not found"));
     }
 
+    @GetMapping("/employee/{employeeId}")
+    public EmployeeProfile getByEmployeeId(@PathVariable String employeeId) {
+        return service.findByEmployeeId(employeeId)
+                .orElseThrow(() -> new RuntimeException("Employee not found"));
+    }
 
     @PutMapping
-    public EmployeeProfile updateEmployee(@RequestBody EmployeeProfile employee) {
+    public EmployeeProfile update(@RequestBody EmployeeProfile employee) {
         return service.updateEmployee(employee);
     }
 
-    @PutMapping("/{id}/status")
-    public EmployeeProfile updateEmployeeStatus(
+    @PatchMapping("/{id}/status")
+    public EmployeeProfile updateStatus(
             @PathVariable Long id,
             @RequestParam boolean active) {
+
         return service.updateEmployeeStatus(id, active);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteEmployee(@PathVariable Long id) {
+    public void delete(@PathVariable Long id) {
         service.deleteEmployee(id);
     }
 }
