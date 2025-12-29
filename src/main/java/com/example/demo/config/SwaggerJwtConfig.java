@@ -23,4 +23,3 @@ public class SwaggerJwtConfig {
             );
     }
 }
-mvn spring-boot:run --debug
