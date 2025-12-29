@@ -3,57 +3,51 @@ package com.example.demo.service.impl;
 import com.example.demo.model.EmployeeProfile;
 import com.example.demo.repository.EmployeeProfileRepository;
 import com.example.demo.service.EmployeeProfileService;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+
+import org.springframework.stereotype.Service;
 
 @Service
 public class EmployeeProfileServiceImpl implements EmployeeProfileService {
 
-    private final EmployeeProfileRepository repository;
+    private final EmployeeProfileRepository employeeProfileRepository;
+
+    public EmployeeProfileServiceImpl(EmployeeProfileRepository employeeProfileRepository) {
+        this.employeeProfileRepository = employeeProfileRepository;
+    }
+
+    @Override
+    public EmployeeProfile createEmployee(EmployeeProfile employee) {
+        return employeeProfileRepository.save(employee);
+    }
+
+    @Override
+    public EmployeeProfile getEmployeeById(Long id) {
+        return employeeProfileRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Employee not found"));
+    }
+
+    @Override
+    public List<EmployeeProfile> getAllEmployees() {
+        return employeeProfileRepository.findAll();
+    }
 
     @Override
     public Optional<EmployeeProfile> findByEmployeeId(String employeeId) {
         return employeeProfileRepository.findByEmployeeId(employeeId);
     }
 
-
-    @Override
-    public EmployeeProfile createEmployee(EmployeeProfile employee) {
-        return repository.save(employee);
-    }
-
-    @Override
-    public List<EmployeeProfile> getAllEmployees() {
-        return repository.findAll();
-    }
-
-    @Override
-    public EmployeeProfile getEmployeeById(Long id) {
-        return repository.findById(id).orElse(null);
-    }
-
-    @Override
-    public EmployeeProfile findByEmployeeId(String employeeId) {
-        return repository.findByEmployeeId(employeeId).orElse(null);
-    }
-
-    @Override
-    public EmployeeProfile updateEmployee(EmployeeProfile employee) {
-        return repository.save(employee);
-    }
-
     @Override
     public EmployeeProfile updateEmployeeStatus(Long id, boolean active) {
-        EmployeeProfile emp = repository.findById(id).orElse(null);
-        if (emp == null) return null;
-
+        EmployeeProfile emp = getEmployeeById(id);
         emp.setActive(active);
-        return repository.save(emp);
+        return employeeProfileRepository.save(emp);
     }
 
     @Override
     public void deleteEmployee(Long id) {
-        repository.deleteById(id);
+        employeeProfileRepository.deleteById(id);
     }
 }
