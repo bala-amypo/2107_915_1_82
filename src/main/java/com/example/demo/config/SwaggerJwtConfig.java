@@ -7,10 +7,6 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class SwaggerJwtConfig {
-    @Bean
-        public JwtTokenProvider jwtTokenProvider() {
-    return new JwtTokenProvider("secret", 86400000);
-    }
 
     @Bean
     public Components swaggerComponents() {
