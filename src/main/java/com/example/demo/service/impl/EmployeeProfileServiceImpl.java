@@ -12,9 +12,11 @@ public class EmployeeProfileServiceImpl implements EmployeeProfileService {
 
     private final EmployeeProfileRepository repository;
 
-    public EmployeeProfileServiceImpl(EmployeeProfileRepository repository) {
-        this.repository = repository;
+    @Override
+    public Optional<EmployeeProfile> findByEmployeeId(String employeeId) {
+        return employeeProfileRepository.findByEmployeeId(employeeId);
     }
+
 
     @Override
     public EmployeeProfile createEmployee(EmployeeProfile employee) {
