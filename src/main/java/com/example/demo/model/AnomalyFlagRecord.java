@@ -10,7 +10,6 @@ public class AnomalyFlagRecord {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // ✅ REQUIRED FOR findByMetricId()
     private Long metricId;
 
     private String ruleCode;

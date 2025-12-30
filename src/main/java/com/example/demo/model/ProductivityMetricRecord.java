@@ -26,7 +26,6 @@ public class ProductivityMetricRecord {
     @Lob
     private String rawDataJson;
 
-    /* ===== REQUIRED BY TESTS ===== */
 
     public Double getHoursLogged() {
         return hoursLogged;
@@ -44,7 +43,6 @@ public class ProductivityMetricRecord {
         this.productivityScore = productivityScore;
     }
 
-    /* ===== STANDARD ===== */
 
     public Integer getTasksCompleted() { return tasksCompleted; }
     public void setTasksCompleted(Integer tasksCompleted) { this.tasksCompleted = tasksCompleted; }
