@@ -15,8 +15,6 @@ public class EmployeeProfile {
     private String teamName;
     private Boolean active;
 
-    // ===== GETTERS & SETTERS =====
-
     public Long getId() {
         return id;
     }
